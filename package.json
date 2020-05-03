@@ -1,0 +1,18 @@
+{
+  "name": "mdawar.dev",
+  "version": "1.0.0",
+  "description": "My personal blog",
+  "scripts": {
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
+  },
+  "author": "Pierre Mdawar",
+  "license": "MIT",
+  "dependencies": {
+    "gatsby": "^2.21.9",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
