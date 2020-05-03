@@ -1,5 +1,28 @@
 import React from 'react';
+import { graphql, useStaticQuery } from 'gatsby';
 
 export default () => {
-  return <h1>Hello World</h1>;
+  const {
+    site: {
+      siteMetadata: { title, description },
+    },
+  } = useStaticQuery(
+    graphql`
+      query SiteMetadata {
+        site {
+          siteMetadata {
+            title
+            description
+          }
+        }
+      }
+    `
+  );
+
+  return (
+    <>
+      <h1>{title}</h1>
+      <p>{description}</p>
+    </>
+  );
 };
