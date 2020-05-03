@@ -14,5 +14,11 @@
     "gatsby": "^2.21.9",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
+  },
+  "prettier": {
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "none"
   }
 }
