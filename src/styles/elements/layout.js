@@ -22,12 +22,12 @@ export const SideBar = styled.div`
     background: ${({ theme }) => theme.color.border};
     background: ${({ theme }) =>
       `linear-gradient(
-        180deg,
-        ${theme.color.bg} 0%,
-        ${theme.color.border} 25%,
-        ${theme.color.border} 75%,
-        ${theme.color.bg} 100%
-      )`};
+          180deg,
+          ${theme.color.bg} 0%,
+          ${theme.color.border} 25%,
+          ${theme.color.border} 75%,
+          ${theme.color.bg} 100%
+        )`};
     position: absolute;
     width: 0.01rem;
     height: 100%;
@@ -35,7 +35,7 @@ export const SideBar = styled.div`
     right: 0;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1024px) {
     width: 100%;
 
     &::after {
@@ -44,6 +44,14 @@ export const SideBar = styled.div`
       bottom: 0;
       top: auto;
       right: 20%;
+      background: ${({ theme }) =>
+        `linear-gradient(
+          90deg,
+          ${theme.color.bg} 0%,
+          ${theme.color.border} 25%,
+          ${theme.color.border} 75%,
+          ${theme.color.bg} 100%
+        )`};
     }
   }
 `;
@@ -52,7 +60,7 @@ export const MainContent = styled.main`
   width: 75%;
   padding: ${({ theme }) => theme.padding}rem;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1024px) {
     width: 100%;
   }
 `;
@@ -60,7 +68,7 @@ export const MainContent = styled.main`
 export const Header = styled.header`
   margin-bottom: 2rem;
 
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 1024px) {
     text-align: center;
   }
 `;
@@ -70,11 +78,15 @@ export const MainMenu = styled.nav`
     margin: ${({ theme }) => theme.padding / 4}rem 0;
   }
 
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 1024px) {
     ul {
       display: flex;
       justify-content: space-evenly;
       flex-wrap: wrap;
+    }
+
+    li {
+      margin: ${({ theme }) => theme.padding / 4}rem;
     }
   }
 `;
