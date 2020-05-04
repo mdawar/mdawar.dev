@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 
 export default ({ data }) => {
   const {
@@ -14,9 +14,11 @@ export default ({ data }) => {
     <>
       <h1>{title}</h1>
       <p>{description}</p>
-      {posts.map(({ id, excerpt, frontmatter }) => (
+      {posts.map(({ id, excerpt, frontmatter, fields }) => (
         <div key={id}>
-          <h3>{frontmatter.title}</h3>
+          <h3>
+            <Link to={fields.slug}>{frontmatter.title}</Link>
+          </h3>
           <p>Posted on: {frontmatter.date}</p>
           <p>{excerpt}</p>
         </div>
@@ -46,6 +48,9 @@ export const query = graphql`
         }
         id
         excerpt
+        fields {
+          slug
+        }
       }
     }
   }
