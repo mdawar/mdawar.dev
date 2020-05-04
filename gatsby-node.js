@@ -29,10 +29,13 @@ exports.createPages = async ({ graphql, actions }) => {
     query {
       allMdx(
         filter: { frontmatter: { published: { eq: true } } }
-        sort: { fields: frontmatter___date, order: DESC }
+        sort: { fields: frontmatter___date, order: ASC }
       ) {
         edges {
           node {
+            frontmatter {
+              title
+            }
             fields {
               slug
             }
@@ -42,12 +45,20 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `);
 
-  result.data.allMdx.edges.forEach(({ node }) => {
+  const posts = result.data.allMdx.edges;
+
+  posts.forEach(({ node }, index) => {
+    // Previous and next posts
+    const previous = index === 0 ? null : posts[index - 1].node;
+    const next = index === posts.length - 1 ? null : posts[index + 1].node;
+
     createPage({
       path: node.fields.slug,
       component: postTemplate,
       context: {
-        slug: node.fields.slug
+        slug: node.fields.slug,
+        previous,
+        next
       }
     });
   });
