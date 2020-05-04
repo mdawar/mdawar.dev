@@ -34,7 +34,10 @@ export const query = graphql`
       }
     }
 
-    allMdx {
+    allMdx(
+      filter: { frontmatter: { published: { eq: true } } }
+      sort: { fields: frontmatter___date, order: DESC }
+    ) {
       nodes {
         frontmatter {
           title
