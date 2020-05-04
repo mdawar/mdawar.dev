@@ -1,5 +1,10 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
+import styled from 'styled-components';
+
+const PostWrapper = styled.div`
+  margin-bottom: 2rem;
+`;
 
 export default ({ data }) => {
   const posts = data.allMdx.nodes;
@@ -7,13 +12,13 @@ export default ({ data }) => {
   return (
     <>
       {posts.map(({ id, excerpt, frontmatter, fields }) => (
-        <div key={id}>
+        <PostWrapper key={id}>
           <h3>
             <Link to={fields.slug}>{frontmatter.title}</Link>
           </h3>
           <p>Posted on: {frontmatter.date}</p>
           <p>{excerpt}</p>
-        </div>
+        </PostWrapper>
       ))}
     </>
   );
