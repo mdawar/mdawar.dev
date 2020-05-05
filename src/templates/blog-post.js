@@ -1,13 +1,14 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
+import { Content } from '../styles/elements/content';
 
 export default function BlogPostPage({ data, pageContext }) {
   const { frontmatter, body } = data.mdx;
   const { previous, next } = pageContext;
 
   return (
-    <>
+    <Content>
       <h1>{frontmatter.title}</h1>
       <p>Posted on: {frontmatter.date}</p>
       <MDXRenderer>{body}</MDXRenderer>
@@ -19,7 +20,7 @@ export default function BlogPostPage({ data, pageContext }) {
       {next && (
         <Link to={next.fields.slug}>Next: {next.frontmatter.title}</Link>
       )}
-    </>
+    </Content>
   );
 }
 
