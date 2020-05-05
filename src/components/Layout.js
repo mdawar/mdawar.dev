@@ -10,7 +10,7 @@ import {
   Footer
 } from '../styles/elements/layout';
 
-export default ({ children }) => {
+export default function Layout({ children }) {
   const {
     site: {
       siteMetadata: { title, description }
@@ -60,4 +60,4 @@ export default ({ children }) => {
       </Footer>
     </Container>
   );
-};
+}

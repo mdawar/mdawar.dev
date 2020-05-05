@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
 
-export default ({ data, pageContext }) => {
+export default function TagPage({ data, pageContext }) {
   const { tag } = pageContext;
   const { posts, totalCount } = data.allMdx;
 
@@ -25,7 +25,7 @@ export default ({ data, pageContext }) => {
       <Link to="/tags">All tags</Link>
     </div>
   );
-};
+}
 
 export const query = graphql`
   query PostsByTag($tag: String!) {

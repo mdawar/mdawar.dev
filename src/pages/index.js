@@ -6,7 +6,7 @@ const PostWrapper = styled.div`
   margin-bottom: 2rem;
 `;
 
-export default ({ data }) => {
+export default function IndexPage({ data }) {
   const posts = data.allMdx.nodes;
 
   return (
@@ -22,7 +22,7 @@ export default ({ data }) => {
       ))}
     </>
   );
-};
+}
 
 export const query = graphql`
   query BlogPosts {

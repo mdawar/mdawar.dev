@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 
-export default ({ data, pageContext }) => {
+export default function BlogPostPage({ data, pageContext }) {
   const { frontmatter, body } = data.mdx;
   const { previous, next } = pageContext;
 
@@ -21,7 +21,7 @@ export default ({ data, pageContext }) => {
       )}
     </>
   );
-};
+}
 
 export const query = graphql`
   query BlogPost($slug: String!) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
 
-export default ({ data }) => {
+export default function TagsPage({ data }) {
   const tags = data.allMdx.group;
 
   return (
@@ -18,7 +18,7 @@ export default ({ data }) => {
       </ul>
     </div>
   );
-};
+}
 
 export const query = graphql`
   query AllTags {
