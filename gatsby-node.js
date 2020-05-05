@@ -19,15 +19,16 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   }
 };
 
-// Create the blog post pages
+// Dynamic pages
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
   const postTemplate = path.resolve('./src/templates/blog-post.js');
+  const tagTemplate = path.resolve('./src/templates/tag.js');
 
   const result = await graphql(`
     query {
-      allMdx(
+      posts: allMdx(
         filter: { frontmatter: { published: { eq: true } } }
         sort: { fields: frontmatter___date, order: ASC }
       ) {
@@ -42,11 +43,20 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+
+      tags: allMdx(limit: 2000) {
+        group(field: frontmatter___tags) {
+          name: fieldValue
+          totalCount
+        }
+      }
     }
   `);
 
-  const posts = result.data.allMdx.edges;
+  const posts = result.data.posts.edges;
+  const tags = result.data.tags.group;
 
+  // Create the posts pages
   posts.forEach(({ node }, index) => {
     // Previous and next posts
     const previous = index === 0 ? null : posts[index - 1].node;
@@ -59,6 +69,17 @@ exports.createPages = async ({ graphql, actions }) => {
         slug: node.fields.slug,
         previous,
         next
+      }
+    });
+  });
+
+  // Create the tags pages
+  tags.forEach((tag) => {
+    createPage({
+      path: `/tags/${tag.name.toLowerCase()}`,
+      component: tagTemplate,
+      context: {
+        tag: tag.name
       }
     });
   });
