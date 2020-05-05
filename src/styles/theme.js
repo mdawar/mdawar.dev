@@ -8,7 +8,8 @@ export default {
 
   font: {
     sans:
-      '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif'
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+    monospace: 'Consolas, Monaco, Andale Mono, monospace'
   },
 
   padding: 2

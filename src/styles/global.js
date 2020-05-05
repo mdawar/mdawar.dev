@@ -48,4 +48,8 @@ export default createGlobalStyle`
   strong {
     font-weight: 600;
   }
+
+  em {
+    font-style: italic;
+  }
 `;
