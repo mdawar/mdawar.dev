@@ -14,7 +14,7 @@ export default createGlobalStyle`
 
   body {
     font-family: ${({ theme }) => theme.font.sans};
-    line-height: 1.6;
+    line-height: ${({ theme }) => theme.lineHeight};
     background: ${({ theme }) => theme.color.bg};
     color: ${({ theme }) => theme.color.text};
   }
@@ -31,7 +31,7 @@ export default createGlobalStyle`
 
   h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
-    margin-bottom: 1rem;
+    margin-bottom: ${({ theme }) => theme.margin}rem;
   }
 
   h1 {font-size: 2rem;}
@@ -42,7 +42,7 @@ export default createGlobalStyle`
   h6 {font-size: 1rem;}
 
   p:not(:last-child) {
-    margin-bottom: 1rem;
+    margin-bottom: ${({ theme }) => theme.margin}rem;
   }
 
   strong {
@@ -51,5 +51,15 @@ export default createGlobalStyle`
 
   em {
     font-style: italic;
+  }
+
+  small {
+    font-size: smaller;
+  }
+
+  img,
+  video {
+    height: auto;
+    max-width: 100%;
   }
 `;

@@ -6,10 +6,10 @@ import styled from 'styled-components';
 const Pre = styled.pre`
   font-family: ${({ theme }) => theme.font.monospace};
   text-align: left;
-  margin: 1rem 0;
+  margin: ${({ theme }) => theme.margin}rem 0;
   padding: 1rem;
   overflow: auto;
-  border-radius: 3px;
+  border-radius: ${({ theme }) => theme.borderRadius};
 
   &::-webkit-scrollbar {
     width: 0.5rem;
@@ -17,11 +17,11 @@ const Pre = styled.pre`
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #3498db;
+    background: ${({ theme }) => theme.scrollbar.thumbColor};
   }
 
   &::-webkit-scrollbar-track {
-    background: #4b4e57;
+    background: ${({ theme }) => theme.scrollbar.trackColor};
   }
 `;
 

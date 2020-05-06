@@ -12,5 +12,13 @@ export default {
     monospace: 'Consolas, Monaco, Andale Mono, monospace'
   },
 
-  padding: 2
+  lineHeight: 1.6,
+  padding: 2,
+  margin: 1.5,
+  borderRadius: '3px',
+
+  scrollbar: {
+    trackColor: '#4b4e57',
+    thumbColor: '#3498db'
+  }
 };
