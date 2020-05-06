@@ -8,8 +8,21 @@ const Pre = styled.pre`
   text-align: left;
   margin: 1rem 0;
   padding: 1rem;
-  overflow-x: auto;
+  overflow: auto;
   border-radius: 3px;
+
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #3498db;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #4b4e57;
+  }
 `;
 
 const Line = styled.div`
