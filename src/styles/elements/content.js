@@ -68,4 +68,37 @@ export const Content = styled.div`
   sub {
     vertical-align: sub;
   }
+
+  table {
+    width: 100%;
+  }
+
+  table td,
+  table th {
+    border: 1px solid ${({ theme }) => theme.table.borderColor};
+    border-width: 0 0 ${({ theme }) => theme.table.borderWith};
+    padding: 0.5em 0.75em;
+    vertical-align: top;
+  }
+
+  table th:not([align]) {
+    text-align: left;
+  }
+
+  table thead td,
+  table thead th {
+    border-width: 0 0 ${({ theme }) => theme.table.headBorderWidth};
+    color: ${({ theme }) => theme.table.headColor};
+  }
+
+  table tfoot td,
+  table tfoot th {
+    border-width: ${({ theme }) => theme.table.footBorderWidth} 0 0;
+    color: ${({ theme }) => theme.table.footColor};
+  }
+
+  table tbody tr:last-child td,
+  table tbody tr:last-child th {
+    border-bottom-width: 0;
+  }
 `;

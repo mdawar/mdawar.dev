@@ -20,5 +20,14 @@ export default {
   scrollbar: {
     trackColor: '#4b4e57',
     thumbColor: '#3498db'
+  },
+
+  table: {
+    borderColor: '#e6e6e6',
+    borderWith: '1px',
+    headBorderWidth: '2px',
+    footBorderWidth: '2px',
+    headColor: '#292929',
+    footColor: '#292929'
   }
 };
