@@ -3,25 +3,29 @@ import Highlight, { defaultProps } from 'prism-react-renderer';
 import theme from 'prism-react-renderer/themes/nightOwl';
 import styled from 'styled-components';
 
-export const CodeContainer = styled.pre`
+const Pre = styled.pre`
   font-family: ${({ theme }) => theme.font.monospace};
   text-align: left;
   margin: 1rem 0;
   padding: 1rem;
   overflow-x: auto;
   border-radius: 3px;
-
-  & .token-line {
-    line-height: 1.3rem;
-    height: 1.3rem;
-  }
 `;
 
-export const LineNumber = styled.span`
-  display: inline-block;
-  width: 2rem;
+const Line = styled.div`
+  display: table-row;
+`;
+
+const LineNo = styled.span`
+  display: table-cell;
+  text-align: right;
+  padding-right: 1rem;
   user-select: none;
-  opacity: 0.4;
+  opacity: 0.5;
+`;
+
+const LineContent = styled.span`
+  display: table-cell;
 `;
 
 /*
@@ -39,16 +43,18 @@ export default function CodeBlock({ children: { props } }) {
   return (
     <Highlight {...defaultProps} code={code} language={language} theme={theme}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <CodeContainer className={className} style={style}>
+        <Pre className={className} style={style}>
           {tokens.map((line, i) => (
-            <div {...getLineProps({ line, key: i })}>
-              <LineNumber>{i + 1}</LineNumber>
-              {line.map((token, key) => (
-                <span {...getTokenProps({ token, key })} />
-              ))}
-            </div>
+            <Line key={i} {...getLineProps({ line, key: i })}>
+              <LineNo>{i + 1}</LineNo>
+              <LineContent>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token, key })} />
+                ))}
+              </LineContent>
+            </Line>
           ))}
-        </CodeContainer>
+        </Pre>
       )}
     </Highlight>
   );
