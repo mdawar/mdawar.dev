@@ -68,6 +68,11 @@ export const MainContent = styled.main`
 export const Header = styled.header`
   margin-bottom: 2rem;
 
+  h1 a {
+    color: teal;
+    border: none;
+  }
+
   @media screen and (max-width: 1024px) {
     text-align: center;
   }
