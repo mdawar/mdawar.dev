@@ -45,8 +45,8 @@ export const Content = styled.div`
 
   code {
     font-family: ${({ theme }) => theme.font.monospace};
-    background: #011627;
-    color: #d6deeb;
+    background: bisque;
+    border: 1px solid burlywood;
     padding: 0.1rem 0.2rem;
     border-radius: ${({ theme }) => theme.borderRadius};
   }
