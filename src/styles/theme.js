@@ -27,7 +27,7 @@ export default {
     borderWith: '1px',
     headBorderWidth: '2px',
     footBorderWidth: '2px',
-    headColor: '#292929',
-    footColor: '#292929'
+    headFontWeight: 600,
+    footFontWeight: 600
   }
 };
