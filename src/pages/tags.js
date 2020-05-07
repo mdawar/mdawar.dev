@@ -10,7 +10,7 @@ export default function TagsPage({ data }) {
       <ul>
         {tags.map((tag) => (
           <li key={tag.name}>
-            <Link to={`/tags/${tag.name.toLowerCase()}/`}>
+            <Link to={`/tags/${tag.name.toLowerCase()}`}>
               {tag.name} ({tag.totalCount})
             </Link>
           </li>
