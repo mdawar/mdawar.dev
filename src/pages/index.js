@@ -12,7 +12,6 @@ const PostInfo = styled.div`
 
 const PostTags = styled.ul`
   display: inline-block;
-  margin-left: 0.5rem;
 
   li {
     display: inline;
@@ -24,7 +23,8 @@ const PostTags = styled.ul`
   }
 
   &::before {
-    content: '• ';
+    content: '•';
+    margin: 0 0.5rem;
   }
 `;
 
