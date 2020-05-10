@@ -1,56 +1,14 @@
 import React from 'react';
-import { graphql, Link } from 'gatsby';
-import styled from 'styled-components';
-
-const PostWrapper = styled.div`
-  margin-bottom: 2rem;
-`;
-
-const PostInfo = styled.div`
-  margin-bottom: ${({ theme }) => theme.margin}rem;
-`;
-
-const PostTags = styled.ul`
-  display: inline-block;
-
-  li {
-    display: inline;
-  }
-
-  a {
-    /* border: none; */
-    color: ${({ theme }) => theme.color.text};
-  }
-
-  &::before {
-    content: '•';
-    margin: 0 0.5rem;
-  }
-`;
+import { graphql } from 'gatsby';
+import Post from '../components/Post';
 
 export default function IndexPage({ data }) {
   const posts = data.allMdx.nodes;
 
   return (
     <>
-      {posts.map(({ id, excerpt, frontmatter, fields }) => (
-        <PostWrapper key={id}>
-          <h3>
-            <Link to={fields.slug}>{frontmatter.title}</Link>
-          </h3>
-          <PostInfo>
-            <time>{frontmatter.date}</time>
-            <PostTags>
-              {frontmatter.tags.map((tag, index) => (
-                <li key={tag}>
-                  {!!index && ', '}
-                  <Link to={`/tags/${tag.toLowerCase()}`}>{tag}</Link>
-                </li>
-              ))}
-            </PostTags>
-          </PostInfo>
-          <p>{excerpt}</p>
-        </PostWrapper>
+      {posts.map((post) => (
+        <Post key={post.id} post={post} />
       ))}
     </>
   );
