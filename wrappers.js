@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import Layout from './src/components/Layout';
-import GlobalStyle from './src/styles/global';
+import { GlobalStyle } from './src/styles/global';
 import theme from './src/styles/theme';
 import { MDXProvider } from '@mdx-js/react';
 import CodeBlock from './src/components/CodeBlock';

@@ -1,7 +1,7 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 import reset from 'styled-reset';
 
-export default createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
   ${reset}
 
   html {
@@ -62,4 +62,26 @@ export default createGlobalStyle`
     height: auto;
     max-width: 100%;
   }
+`;
+
+export const horizontalBg = ({ theme }) => css`
+  background: ${theme.color.border};
+  background: linear-gradient(
+    90deg,
+    ${theme.color.bg} 0%,
+    ${theme.color.border} 25%,
+    ${theme.color.border} 75%,
+    ${theme.color.bg} 100%
+  );
+`;
+
+export const verticalBg = ({ theme }) => css`
+  background: ${theme.color.border};
+  background: linear-gradient(
+    180deg,
+    ${theme.color.bg} 0%,
+    ${theme.color.border} 25%,
+    ${theme.color.border} 75%,
+    ${theme.color.bg} 100%
+  );
 `;

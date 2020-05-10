@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'gatsby';
+import { horizontalBg, verticalBg } from '../global';
 
 export const Container = styled.div`
   display: flex;
@@ -19,17 +20,9 @@ export const SideBar = styled.div`
 
   &::after {
     content: '';
-    background: ${({ theme }) => theme.color.border};
-    background: ${({ theme }) =>
-      `linear-gradient(
-          180deg,
-          ${theme.color.bg} 0%,
-          ${theme.color.border} 25%,
-          ${theme.color.border} 75%,
-          ${theme.color.bg} 100%
-        )`};
+    ${verticalBg};
     position: absolute;
-    width: 0.01rem;
+    width: 1px;
     height: 100%;
     top: 0;
     right: 0;
@@ -40,18 +33,11 @@ export const SideBar = styled.div`
 
     &::after {
       width: 60%;
-      height: 0.01rem;
+      height: 1px;
       bottom: 0;
       top: auto;
       right: 20%;
-      background: ${({ theme }) =>
-        `linear-gradient(
-          90deg,
-          ${theme.color.bg} 0%,
-          ${theme.color.border} 25%,
-          ${theme.color.border} 75%,
-          ${theme.color.bg} 100%
-        )`};
+      ${horizontalBg};
     }
   }
 `;
@@ -112,18 +98,10 @@ export const Footer = styled.footer`
 
   &::before {
     content: '';
-    background: ${({ theme }) => theme.color.border};
-    background: ${({ theme }) =>
-      `linear-gradient(
-        90deg,
-        ${theme.color.bg} 0%,
-        ${theme.color.border} 25%,
-        ${theme.color.border} 75%,
-        ${theme.color.bg} 100%
-      )`};
+    ${horizontalBg};
     position: absolute;
     width: 100%;
-    height: 0.01rem;
+    height: 1px;
     top: 0;
     left: 0;
   }
