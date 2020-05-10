@@ -23,6 +23,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
+  const blogTemplate = path.resolve('./src/templates/blog.js');
   const postTemplate = path.resolve('./src/templates/blog-post.js');
   const tagTemplate = path.resolve('./src/templates/tag.js');
 
@@ -83,4 +84,23 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     });
   });
+
+  // Create the blog list pages
+  const postsPerPage = 5;
+  const totalPages = Math.ceil(posts.length / postsPerPage);
+
+  for (let i = 0; i < totalPages; i++) {
+    const currentPage = i + 1;
+
+    createPage({
+      path: i === 0 ? '/blog' : `/blog/${currentPage}`,
+      component: blogTemplate,
+      context: {
+        limit: postsPerPage,
+        skip: i * postsPerPage,
+        currentPage,
+        totalPages
+      }
+    });
+  }
 };

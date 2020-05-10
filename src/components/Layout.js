@@ -40,7 +40,10 @@ export default function Layout({ children }) {
         <MainMenu>
           <ul>
             <li>
-              <NavLink to="/">Blog</NavLink>
+              <NavLink to="/">Home</NavLink>
+            </li>
+            <li>
+              <NavLink to="/blog">Blog</NavLink>
             </li>
             <li>
               <NavLink to="/about">About me</NavLink>
