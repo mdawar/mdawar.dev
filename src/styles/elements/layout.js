@@ -55,7 +55,7 @@ export const Header = styled.header`
   margin-bottom: 2rem;
 
   h1 a {
-    color: teal;
+    color: ${({theme}) => theme.color.text};
     border: none;
   }
 

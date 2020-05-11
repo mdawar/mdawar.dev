@@ -56,7 +56,7 @@ export default function Layout({ children }) {
       </SideBar>
       <MainContent>{children}</MainContent>
       <Footer>
-        <p>&copy; 2020 All right reserved</p>
+        <p>&copy; 2020 All rights reserved</p>
         <p>
           Made with <a href="https://www.gatsbyjs.org">Gatsby</a>
         </p>
