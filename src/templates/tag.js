@@ -6,8 +6,6 @@ export default function TagPage({ data, pageContext }) {
   const { tag } = pageContext;
   const { posts, totalCount } = data.allMdx;
 
-  const tagHeader = `${tag} (${totalCount} post${totalCount === 1 ? '' : 's'})`;
-
   return (
     <>
       <SectionHeader>
