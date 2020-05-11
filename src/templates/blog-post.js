@@ -14,7 +14,7 @@ export default function BlogPostPage({ data, pageContext }) {
         <p>Posted on: {frontmatter.date}</p>
         <MDXRenderer>{body}</MDXRenderer>
       </Content>
-      {(previous || next) &&
+      {(previous || next) && (
         <Pagination>
           {previous && (
             <Link to={previous.fields.slug}>
@@ -22,10 +22,12 @@ export default function BlogPostPage({ data, pageContext }) {
             </Link>
           )}
           {next && (
-            <Link to={next.fields.slug}>Next: {next.frontmatter.title} &rarr;</Link>
+            <Link to={next.fields.slug} className="right">
+              Next: {next.frontmatter.title} &rarr;
+            </Link>
           )}
         </Pagination>
-      }
+      )}
     </>
   );
 }
