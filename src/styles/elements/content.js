@@ -122,3 +122,31 @@ export const Pagination = styled.nav`
     left: 0;
   }
 `;
+
+export const SectionHeader = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  padding-bottom: ${({ theme }) => theme.padding / 2}rem;
+  margin-bottom: ${({ theme }) => theme.padding}rem;
+
+  h2 {
+    margin: 0;
+  }
+
+  a {
+    color: ${({ theme }) => theme.color.text};
+  }
+
+  &::after {
+    content: '';
+    ${horizontalBg};
+    position: absolute;
+    width: 100%;
+    height: 0.01rem;
+    left: 0;
+    bottom: 0;
+  }
+`;

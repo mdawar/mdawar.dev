@@ -1,15 +1,35 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import Post from '../components/Post';
+import { SectionHeader } from '../styles/elements/content';
 
 export default function IndexPage({ data }) {
   const posts = data.allMdx.nodes;
 
   return (
     <>
-      {posts.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
+      <section>
+        <SectionHeader>
+          <h2>Latest Posts</h2>
+          <Link to="/blog">All posts</Link>
+        </SectionHeader>
+        {posts.map((post) => (
+          <Post key={post.id} post={post} />
+        ))}
+      </section>
+      <section>
+        <SectionHeader>
+          <h2>Projects</h2>
+        </SectionHeader>
+        <h3>
+          <a href="https://github.com/mdawar/terraformjs">TerraformJS</a>
+        </h3>
+        <p>Infrastructure as code using JavaScript and Terraform.</p>
+        <h3>
+          <a href="https://github.com/mdawar/rq-exporter">RQ Exporter</a>
+        </h3>
+        <p>Prometheus metrics exporter for Python RQ (Redis Queue).</p>
+      </section>
     </>
   );
 }
@@ -19,6 +39,7 @@ export const query = graphql`
     allMdx(
       filter: { frontmatter: { published: { eq: true } } }
       sort: { fields: frontmatter___date, order: DESC }
+      limit: 3
     ) {
       nodes {
         frontmatter {
