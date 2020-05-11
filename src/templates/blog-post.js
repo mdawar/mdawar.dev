@@ -5,7 +5,7 @@ import { Content, Pagination } from '../styles/elements/content';
 
 export default function BlogPostPage({ data, pageContext }) {
   const { frontmatter, body } = data.mdx;
-  const { previous, next } = pageContext;
+  const { prev, next } = pageContext;
 
   return (
     <>
@@ -14,11 +14,11 @@ export default function BlogPostPage({ data, pageContext }) {
         <p>Posted on: {frontmatter.date}</p>
         <MDXRenderer>{body}</MDXRenderer>
       </Content>
-      {(previous || next) && (
+      {(prev || next) && (
         <Pagination>
-          {previous && (
-            <Link to={previous.fields.slug}>
-              &larr; Previous: {previous.frontmatter.title}
+          {prev && (
+            <Link to={prev.fields.slug}>
+              &larr; Previous: {prev.frontmatter.title}
             </Link>
           )}
           {next && (

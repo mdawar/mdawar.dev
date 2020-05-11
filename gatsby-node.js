@@ -31,7 +31,7 @@ exports.createPages = async ({ graphql, actions }) => {
     query {
       posts: allMdx(
         filter: { frontmatter: { published: { eq: true } } }
-        sort: { fields: frontmatter___date, order: ASC }
+        sort: { fields: frontmatter___date, order: DESC }
       ) {
         edges {
           node {
@@ -60,15 +60,15 @@ exports.createPages = async ({ graphql, actions }) => {
   // Create the posts pages
   posts.forEach(({ node }, index) => {
     // Previous and next posts
-    const previous = index === 0 ? null : posts[index - 1].node;
-    const next = index === posts.length - 1 ? null : posts[index + 1].node;
+    const prev = index === posts.length - 1 ? null : posts[index + 1].node;
+    const next = index === 0 ? null : posts[index - 1].node;
 
     createPage({
       path: node.fields.slug,
       component: postTemplate,
       context: {
         slug: node.fields.slug,
-        previous,
+        prev,
         next
       }
     });
