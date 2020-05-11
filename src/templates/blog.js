@@ -1,12 +1,7 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
 import Post from '../components/Post';
-import styled from 'styled-components';
-
-const Pagination = styled.nav`
-  display: flex;
-  justify-content: space-between;
-`;
+import { Pagination } from '../styles/elements/content';
 
 export default function BlogPostsList({ data, pageContext }) {
   const posts = data.allMdx.nodes;
@@ -29,7 +24,7 @@ export default function BlogPostsList({ data, pageContext }) {
             </Link>
           )}
           {!isLast && (
-            <Link to={nextPage} rel="next" css={'margin-left: auto'}>
+            <Link to={nextPage} rel="next" className="right">
               Next Page &rarr;
             </Link>
           )}

@@ -96,3 +96,12 @@ export const Content = styled.div`
     font-weight: ${({ theme }) => theme.table.footFontWeight};
   }
 `;
+
+export const Pagination = styled.nav`
+  display: flex;
+  justify-content: space-between;
+
+  .right {
+    margin-left: auto;
+  }
+`;
