@@ -104,6 +104,7 @@ export const Pagination = styled.nav`
   display: flex;
   justify-content: space-between;
   padding: ${({ theme }) => theme.padding}rem 0;
+  margin: ${({ theme }) => theme.margin}rem 0;
 
   .right {
     margin-left: auto;
