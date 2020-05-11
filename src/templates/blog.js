@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
 import Post from '../components/Post';
-import { Pagination } from '../styles/elements/content';
+import { SectionHeader, Pagination } from '../styles/elements/content';
 
 export default function BlogPostsList({ data, pageContext }) {
   const posts = data.allMdx.nodes;
@@ -13,6 +13,10 @@ export default function BlogPostsList({ data, pageContext }) {
 
   return (
     <>
+      <SectionHeader>
+        <h2>Blog</h2>
+        <Link to="/tags">All tags</Link>
+      </SectionHeader>
       {posts.map((post) => (
         <Post key={post.id} post={post} />
       ))}

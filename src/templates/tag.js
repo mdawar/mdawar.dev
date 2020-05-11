@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
+import { SectionHeader, Content } from '../styles/elements/content';
 
 export default function TagPage({ data, pageContext }) {
   const { tag } = pageContext;
@@ -8,22 +9,29 @@ export default function TagPage({ data, pageContext }) {
   const tagHeader = `${tag} (${totalCount} post${totalCount === 1 ? '' : 's'})`;
 
   return (
-    <div>
-      <h1>{tagHeader}</h1>
-      <ul>
-        {posts.map(({ node }) => {
-          const { slug } = node.fields;
-          const { title } = node.frontmatter;
+    <>
+      <SectionHeader>
+        <h2>
+          {tag}
+          <small>{` (${totalCount} post${totalCount === 1 ? '' : 's'})`}</small>
+        </h2>
+        <Link to="/tags">All tags</Link>
+      </SectionHeader>
+      <Content>
+        <ul>
+          {posts.map(({ node }) => {
+            const { slug } = node.fields;
+            const { title } = node.frontmatter;
 
-          return (
-            <li key={slug}>
-              <Link to={slug}>{title}</Link>
-            </li>
-          );
-        })}
-      </ul>
-      <Link to="/tags">All tags</Link>
-    </div>
+            return (
+              <li key={slug}>
+                <Link to={slug}>{title}</Link>
+              </li>
+            );
+          })}
+        </ul>
+      </Content>
+    </>
   );
 }
 
