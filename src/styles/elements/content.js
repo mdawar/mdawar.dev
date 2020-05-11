@@ -53,8 +53,10 @@ export const Content = styled.div`
   }
 
   hr {
-    border: 0.02rem solid ${({ theme }) => theme.color.border};
+    height: 1px;
     margin: ${({ theme }) => theme.margin}rem 0;
+    ${horizontalBg};
+    border: none;
   }
 
   sup,
