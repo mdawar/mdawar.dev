@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { horizontalBg } from '../../styles/global';
 
 export const Content = styled.div`
   p:not(:last-child),
@@ -75,7 +76,8 @@ export const Content = styled.div`
 
   table td,
   table th {
-    border: ${({ theme }) => theme.table.borderWith} solid ${({ theme }) => theme.table.borderColor};
+    border: ${({ theme }) => theme.table.borderWith} solid
+      ${({ theme }) => theme.table.borderColor};
     padding: 0.5em 0.75em;
     vertical-align: top;
   }
@@ -98,10 +100,22 @@ export const Content = styled.div`
 `;
 
 export const Pagination = styled.nav`
+  position: relative;
   display: flex;
   justify-content: space-between;
+  padding: ${({ theme }) => theme.padding}rem 0;
 
   .right {
     margin-left: auto;
+  }
+
+  &::before {
+    content: '';
+    ${horizontalBg};
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    top: 0;
+    left: 0;
   }
 `;
