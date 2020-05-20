@@ -8,7 +8,7 @@ function getPageItems(items, page, itemsPerPage) {
 
 function createMultiplePages({
   createPage,
-  slug,
+  path,
   template,
   items,
   itemsPerPage = 10
@@ -19,7 +19,7 @@ function createMultiplePages({
     const currentPage = i + 1;
 
     createPage({
-      path: i === 0 ? `/${slug}` : `/${slug}/${currentPage}`,
+      path: i === 0 ? path : `${path}/${currentPage}`,
       component: template,
       context: {
         limit: itemsPerPage,
@@ -110,7 +110,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // Create the blog list pages
   createMultiplePages({
     createPage,
-    slug: 'blog',
+    path: '/blog',
     template: templates.blog,
     items: posts,
     itemsPerPage: 5
@@ -121,7 +121,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // Create the tags pages
   tags.forEach((tag) => {
     createPage({
-      path: `/tags/${tag.name.toLowerCase()}`,
+      path: `/blog/tags/${tag.name.toLowerCase()}`,
       component: templates.tag,
       context: {
         tag: tag.name
@@ -132,7 +132,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // Create the tags list pages
   createMultiplePages({
     createPage,
-    slug: 'tags',
+    path: '/blog/tags',
     template: templates.tags,
     items: tags,
     itemsPerPage: 100

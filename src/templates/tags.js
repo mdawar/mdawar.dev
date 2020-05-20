@@ -19,7 +19,7 @@ export default function TagsPage({ pageContext }) {
         <ul>
           {tags.map((tag) => (
             <li key={tag.name}>
-              <Link to={`/tags/${tag.name.toLowerCase()}`}>
+              <Link to={`/blog/tags/${tag.name.toLowerCase()}`}>
                 {tag.name} ({tag.totalCount})
               </Link>
             </li>

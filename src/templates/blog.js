@@ -15,7 +15,7 @@ export default function BlogPostsList({ data, pageContext }) {
     <>
       <SectionHeader>
         <h2>Blog</h2>
-        <Link to="/tags">All tags</Link>
+        <Link to="/blog/tags">All tags</Link>
       </SectionHeader>
       {posts.map((post) => (
         <Post key={post.id} post={post} />

@@ -13,7 +13,7 @@ export default function TagPage({ data, pageContext }) {
           {tag}
           <small>{` (${totalCount} post${totalCount === 1 ? '' : 's'})`}</small>
         </h2>
-        <Link to="/tags">All tags</Link>
+        <Link to="/blog/tags">All tags</Link>
       </SectionHeader>
       <Content>
         <ul>
