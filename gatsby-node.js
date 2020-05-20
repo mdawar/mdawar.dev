@@ -1,6 +1,37 @@
 const path = require('path');
 const { createFilePath } = require('gatsby-source-filesystem');
 
+function getPageItems(items, page, itemsPerPage) {
+  // Page numbers start at 1
+  return items.slice((page - 1) * itemsPerPage, page * itemsPerPage);
+}
+
+function createMultiplePages({
+  createPage,
+  slug,
+  template,
+  items,
+  itemsPerPage = 10
+}) {
+  const totalPages = Math.ceil(items.length / itemsPerPage);
+
+  for (let i = 0; i < totalPages; i++) {
+    const currentPage = i + 1;
+
+    createPage({
+      path: i === 0 ? `/${slug}` : `/${slug}/${currentPage}`,
+      component: template,
+      context: {
+        limit: itemsPerPage,
+        skip: i * itemsPerPage,
+        currentPage,
+        totalPages,
+        pageItems: getPageItems(items, currentPage, itemsPerPage)
+      }
+    });
+  }
+}
+
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
@@ -23,9 +54,12 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  const blogTemplate = path.resolve('./src/templates/blog.js');
-  const postTemplate = path.resolve('./src/templates/blog-post.js');
-  const tagTemplate = path.resolve('./src/templates/tag.js');
+  const templates = {
+    blog: path.resolve('./src/templates/blog.js'),
+    post: path.resolve('./src/templates/blog-post.js'),
+    tags: path.resolve('./src/templates/tags.js'),
+    tag: path.resolve('./src/templates/tag.js')
+  };
 
   const result = await graphql(`
     query {
@@ -45,7 +79,7 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
 
-      tags: allMdx(limit: 2000) {
+      tags: allMdx {
         group(field: frontmatter___tags) {
           name: fieldValue
           totalCount
@@ -55,7 +89,6 @@ exports.createPages = async ({ graphql, actions }) => {
   `);
 
   const posts = result.data.posts.edges;
-  const tags = result.data.tags.group;
 
   // Create the posts pages
   posts.forEach(({ node }, index) => {
@@ -65,7 +98,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
     createPage({
       path: node.fields.slug,
-      component: postTemplate,
+      component: templates.post,
       context: {
         slug: node.fields.slug,
         prev,
@@ -74,33 +107,34 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
+  // Create the blog list pages
+  createMultiplePages({
+    createPage,
+    slug: 'blog',
+    template: templates.blog,
+    items: posts,
+    itemsPerPage: 5
+  });
+
+  const tags = result.data.tags.group;
+
   // Create the tags pages
   tags.forEach((tag) => {
     createPage({
       path: `/tags/${tag.name.toLowerCase()}`,
-      component: tagTemplate,
+      component: templates.tag,
       context: {
         tag: tag.name
       }
     });
   });
 
-  // Create the blog list pages
-  const postsPerPage = 5;
-  const totalPages = Math.ceil(posts.length / postsPerPage);
-
-  for (let i = 0; i < totalPages; i++) {
-    const currentPage = i + 1;
-
-    createPage({
-      path: i === 0 ? '/blog' : `/blog/${currentPage}`,
-      component: blogTemplate,
-      context: {
-        limit: postsPerPage,
-        skip: i * postsPerPage,
-        currentPage,
-        totalPages
-      }
-    });
-  }
+  // Create the tags list pages
+  createMultiplePages({
+    createPage,
+    slug: 'tags',
+    template: templates.tags,
+    items: tags,
+    itemsPerPage: 100
+  });
 };
