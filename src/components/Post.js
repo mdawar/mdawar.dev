@@ -16,7 +16,7 @@ export default function Post({ post }) {
           {frontmatter.tags.map((tag, index) => (
             <li key={tag}>
               {!!index && ', '}
-              <Link to={`/tags/${tag.toLowerCase()}`}>{tag}</Link>
+              <Link to={`/blog/tags/${tag.toLowerCase()}`}>{tag}</Link>
             </li>
           ))}
         </PostTags>
