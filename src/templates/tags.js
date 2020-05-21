@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import { SectionHeader, Content, Pagination } from '../styles/elements/content';
+import Pagination from '../components/Pagination';
+import { SectionHeader, Content } from '../styles/elements/content';
 
 export default function TagsPage({ pageContext }) {
   const { pageItems: tags, currentPage, totalPages } = pageContext;
-  const isFirst = currentPage === 1;
-  const isLast = currentPage === totalPages;
   const prevPage =
     currentPage - 1 === 1 ? '/blog/tags' : `/blog/tags/${currentPage - 1}`;
   const nextPage = `/blog/tags/${currentPage + 1}`;
@@ -28,18 +27,12 @@ export default function TagsPage({ pageContext }) {
         </ul>
       </Content>
       {totalPages > 1 && (
-        <Pagination>
-          {!isFirst && (
-            <Link to={prevPage} rel="prev">
-              &larr; Previous Page
-            </Link>
-          )}
-          {!isLast && (
-            <Link to={nextPage} rel="next">
-              Next Page &rarr;
-            </Link>
-          )}
-        </Pagination>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          prevLink={prevPage}
+          nextLink={nextPage}
+        />
       )}
     </>
   );

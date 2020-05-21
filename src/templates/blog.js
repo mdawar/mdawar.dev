@@ -1,13 +1,12 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
 import Post from '../components/Post';
-import { SectionHeader, Pagination } from '../styles/elements/content';
+import Pagination from '../components/Pagination';
+import { SectionHeader } from '../styles/elements/content';
 
 export default function BlogPostsList({ data, pageContext }) {
   const posts = data.allMdx.nodes;
   const { currentPage, totalPages } = pageContext;
-  const isFirst = currentPage === 1;
-  const isLast = currentPage === totalPages;
   const prevPage = currentPage - 1 === 1 ? '/blog' : `/blog/${currentPage - 1}`;
   const nextPage = `/blog/${currentPage + 1}`;
 
@@ -21,18 +20,12 @@ export default function BlogPostsList({ data, pageContext }) {
         <Post key={post.id} post={post} />
       ))}
       {totalPages > 1 && (
-        <Pagination>
-          {!isFirst && (
-            <Link to={prevPage} rel="prev">
-              &larr; Previous Page
-            </Link>
-          )}
-          {!isLast && (
-            <Link to={nextPage} rel="next" className="right">
-              Next Page &rarr;
-            </Link>
-          )}
-        </Pagination>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          prevLink={prevPage}
+          nextLink={nextPage}
+        />
       )}
     </>
   );

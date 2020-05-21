@@ -101,28 +101,6 @@ export const Content = styled.div`
   }
 `;
 
-export const Pagination = styled.nav`
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  padding: ${({ theme }) => theme.padding}rem 0;
-  margin: ${({ theme }) => theme.margin}rem 0;
-
-  a[rel='next']:only-child {
-    margin-left: auto;
-  }
-
-  &::before {
-    content: '';
-    ${horizontalBg};
-    position: absolute;
-    width: 100%;
-    height: 1px;
-    top: 0;
-    left: 0;
-  }
-`;
-
 export const SectionHeader = styled.div`
   position: relative;
   display: flex;

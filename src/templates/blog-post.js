@@ -1,7 +1,8 @@
 import React from 'react';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
-import { Content, Pagination } from '../styles/elements/content';
+import Pagination from '../components/Pagination';
+import { Content } from '../styles/elements/content';
 
 export default function BlogPostPage({ data, pageContext }) {
   const { frontmatter, body } = data.mdx;
@@ -15,18 +16,12 @@ export default function BlogPostPage({ data, pageContext }) {
         <MDXRenderer>{body}</MDXRenderer>
       </Content>
       {(prev || next) && (
-        <Pagination>
-          {prev && (
-            <Link to={prev.fields.slug} rel="prev">
-              &larr; Previous: {prev.frontmatter.title}
-            </Link>
-          )}
-          {next && (
-            <Link to={next.fields.slug} rel="next">
-              Next: {next.frontmatter.title} &rarr;
-            </Link>
-          )}
-        </Pagination>
+        <Pagination
+          prev={prev && `← ${prev.frontmatter.title}`}
+          prevLink={prev && prev.fields.slug}
+          next={next && `${next.frontmatter.title} →`}
+          nextLink={next && next.fields.slug}
+        />
       )}
     </>
   );
