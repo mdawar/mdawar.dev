@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import Pagination from '../components/Pagination';
+import { slugify } from '../utils';
 import { SectionHeader, Content } from '../styles/elements/content';
 
 export default function TagsPage({ pageContext }) {
@@ -19,7 +20,7 @@ export default function TagsPage({ pageContext }) {
         <ul>
           {tags.map((tag) => (
             <li key={tag.name}>
-              <Link to={`/blog/tags/${tag.name.toLowerCase()}`}>
+              <Link to={`/blog/tags/${slugify(tag.name)}`}>
                 {tag.name} ({tag.totalCount})
               </Link>
             </li>

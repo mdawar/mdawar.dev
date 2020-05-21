@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { slugify } from '../utils';
 import { PostContainer, PostInfo, PostTags } from '../styles/elements/post';
 
 export default function Post({ post }) {
@@ -16,7 +17,7 @@ export default function Post({ post }) {
           {frontmatter.tags.map((tag, index) => (
             <li key={tag}>
               {!!index && ', '}
-              <Link to={`/blog/tags/${tag.toLowerCase()}`}>{tag}</Link>
+              <Link to={`/blog/tags/${slugify(tag)}`}>{tag}</Link>
             </li>
           ))}
         </PostTags>
