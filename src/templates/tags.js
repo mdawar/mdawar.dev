@@ -6,8 +6,9 @@ export default function TagsPage({ pageContext }) {
   const { pageItems: tags, currentPage, totalPages } = pageContext;
   const isFirst = currentPage === 1;
   const isLast = currentPage === totalPages;
-  const prevPage = currentPage - 1 === 1 ? '/tags' : `/tags/${currentPage - 1}`;
-  const nextPage = `/tags/${currentPage + 1}`;
+  const prevPage =
+    currentPage - 1 === 1 ? '/blog/tags' : `/blog/tags/${currentPage - 1}`;
+  const nextPage = `/blog/tags/${currentPage + 1}`;
 
   return (
     <>
@@ -34,7 +35,7 @@ export default function TagsPage({ pageContext }) {
             </Link>
           )}
           {!isLast && (
-            <Link to={nextPage} rel="next" className="right">
+            <Link to={nextPage} rel="next">
               Next Page &rarr;
             </Link>
           )}

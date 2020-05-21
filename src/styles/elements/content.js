@@ -108,7 +108,7 @@ export const Pagination = styled.nav`
   padding: ${({ theme }) => theme.padding}rem 0;
   margin: ${({ theme }) => theme.margin}rem 0;
 
-  .right {
+  a[rel='next']:only-child {
     margin-left: auto;
   }
 

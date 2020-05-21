@@ -17,12 +17,12 @@ export default function BlogPostPage({ data, pageContext }) {
       {(prev || next) && (
         <Pagination>
           {prev && (
-            <Link to={prev.fields.slug}>
+            <Link to={prev.fields.slug} rel="prev">
               &larr; Previous: {prev.frontmatter.title}
             </Link>
           )}
           {next && (
-            <Link to={next.fields.slug} className="right">
+            <Link to={next.fields.slug} rel="next">
               Next: {next.frontmatter.title} &rarr;
             </Link>
           )}
