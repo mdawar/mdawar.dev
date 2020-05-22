@@ -123,7 +123,7 @@ export const SectionHeader = styled.div`
     ${horizontalBg};
     position: absolute;
     width: 100%;
-    height: 0.01rem;
+    height: 1px;
     left: 0;
     bottom: 0;
   }
