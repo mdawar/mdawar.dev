@@ -29,5 +29,9 @@
     "singleQuote": true,
     "tabWidth": 2,
     "trailingComma": "none"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.9.6",
+    "@babel/register": "^7.9.0"
   }
 }
