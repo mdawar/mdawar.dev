@@ -57,7 +57,7 @@ export const createPages = async ({ graphql, actions }) => {
 
   const templates = {
     blog: path.resolve('./src/templates/blog.js'),
-    post: path.resolve('./src/templates/blog-post.js'),
+    post: path.resolve('./src/templates/post.js'),
     tags: path.resolve('./src/templates/tags.js'),
     tag: path.resolve('./src/templates/tag.js')
   };
