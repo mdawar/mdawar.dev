@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
-import { slugify } from '../utils';
-import { PostContainer, PostInfo, PostTags } from '../styles/elements/post';
+import TagsList from './TagsList';
+import { PostContainer, PostInfo } from '../styles/elements/post';
 
-export default function Post({ post }) {
+function Post({ post }) {
   const { excerpt, frontmatter, fields } = post;
 
   return (
@@ -11,18 +12,17 @@ export default function Post({ post }) {
       <h3>
         <Link to={fields.slug}>{frontmatter.title}</Link>
       </h3>
-      <PostInfo>
+      <PostInfo spaced>
         <time>{frontmatter.date}</time>
-        <PostTags>
-          {frontmatter.tags.map((tag, index) => (
-            <li key={tag}>
-              {!!index && ', '}
-              <Link to={`/blog/tags/${slugify(tag)}`}>{tag}</Link>
-            </li>
-          ))}
-        </PostTags>
+        <TagsList tags={frontmatter.tags} />
       </PostInfo>
       <p>{excerpt}</p>
     </PostContainer>
   );
 }
+
+Post.propTypes = {
+  post: PropTypes.object.isRequired
+};
+
+export default Post;

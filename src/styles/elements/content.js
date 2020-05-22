@@ -110,7 +110,9 @@ export const SectionHeader = styled.div`
   padding-bottom: ${({ theme }) => theme.padding / 2}rem;
   margin-bottom: ${({ theme }) => theme.padding}rem;
 
-  h2 {
+  h1,
+  h2,
+  h3 {
     margin: 0;
   }
 

@@ -5,7 +5,7 @@ export const PostContainer = styled.div`
 `;
 
 export const PostInfo = styled.div`
-  margin-bottom: ${({ theme }) => theme.margin}rem;
+  margin-bottom: ${({ theme, spaced }) => (spaced ? theme.margin : 0)}rem;
 `;
 
 export const PostTags = styled.ul`

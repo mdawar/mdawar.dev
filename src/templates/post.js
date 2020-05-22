@@ -1,8 +1,10 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
+import TagsList from '../components/TagsList';
 import Pagination from '../components/Pagination';
-import { Content } from '../styles/elements/content';
+import { SectionHeader, Content } from '../styles/elements/content';
+import { PostInfo } from '../styles/elements/post';
 
 export default function BlogPostPage({ data, pageContext }) {
   const { frontmatter, body } = data.mdx;
@@ -10,9 +12,14 @@ export default function BlogPostPage({ data, pageContext }) {
 
   return (
     <>
+      <SectionHeader>
+        <PostInfo>
+          <h1>{frontmatter.title}</h1>
+          <time>{frontmatter.date}</time>
+          <TagsList tags={frontmatter.tags} />
+        </PostInfo>
+      </SectionHeader>
       <Content>
-        <h1>{frontmatter.title}</h1>
-        <p>Posted on: {frontmatter.date}</p>
         <MDXRenderer>{body}</MDXRenderer>
       </Content>
       {(prev || next) && (
@@ -33,6 +40,7 @@ export const query = graphql`
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         title
+        tags
       }
       body
     }
