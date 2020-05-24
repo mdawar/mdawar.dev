@@ -4,12 +4,15 @@ import rangeParser from 'parse-numeric-range';
 import theme from 'prism-react-renderer/themes/nightOwl';
 import styled from 'styled-components';
 
-const CodeContainer = styled.div`
+const Container = styled.div`
   margin: ${({ theme }) => theme.margin}rem 0;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+`;
+
+const CodeContainer = styled.div`
   padding: 1rem;
   overflow: auto;
   border-radius: ${({ theme }) => theme.borderRadius};
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
 
   &::-webkit-scrollbar {
     width: 0.5rem;
@@ -63,6 +66,8 @@ const LineContent = styled.span`
 
 function parseOptions(metastring) {
   const defaults = {
+    // Code block title
+    title: null,
     // Show line numbers
     lineNumbers: false,
     // Array of line numbers to highlight
@@ -100,10 +105,24 @@ function parseOptions(metastring) {
   return defaults;
 }
 
+const BlockTitle = styled.div`
+  font-family: ${({ theme }) => theme.font.monospace};
+  background: #0d2a46;
+  color: #d6deeb;
+  padding: 1rem;
+  border-bottom: 1px solid #66798f;
+  border-top-left-radius: ${({ theme }) => theme.borderRadius};
+  border-top-right-radius: ${({ theme }) => theme.borderRadius};
+
+  + ${CodeContainer} {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+`;
+
 /*
   TODO:
     - code copy button
-    - code block title
     - language tabs
 */
 export default function CodeBlock({ children: { props } }) {
@@ -114,24 +133,27 @@ export default function CodeBlock({ children: { props } }) {
   return (
     <Highlight {...defaultProps} code={code} language={language} theme={theme}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <CodeContainer className={className} style={style}>
-          <Pre>
-            {tokens.map((line, i) => (
-              <Line
-                key={i}
-                {...getLineProps({ line, key: i })}
-                highlight={options.highlight.includes(i + 1)}
-              >
-                {options.lineNumbers && <LineNo>{i + 1}</LineNo>}
-                <LineContent>
-                  {line.map((token, key) => (
-                    <span key={key} {...getTokenProps({ token, key })} />
-                  ))}
-                </LineContent>
-              </Line>
-            ))}
-          </Pre>
-        </CodeContainer>
+        <Container>
+          {options.title && <BlockTitle>{options.title}</BlockTitle>}
+          <CodeContainer className={className} style={style}>
+            <Pre>
+              {tokens.map((line, i) => (
+                <Line
+                  key={i}
+                  {...getLineProps({ line, key: i })}
+                  highlight={options.highlight.includes(i + 1)}
+                >
+                  {options.lineNumbers && <LineNo>{i + 1}</LineNo>}
+                  <LineContent>
+                    {line.map((token, key) => (
+                      <span key={key} {...getTokenProps({ token, key })} />
+                    ))}
+                  </LineContent>
+                </Line>
+              ))}
+            </Pre>
+          </CodeContainer>
+        </Container>
       )}
     </Highlight>
   );
