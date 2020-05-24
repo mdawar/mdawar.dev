@@ -1,15 +1,15 @@
 import React from 'react';
 import Highlight, { defaultProps } from 'prism-react-renderer';
+import rangeParser from 'parse-numeric-range';
 import theme from 'prism-react-renderer/themes/nightOwl';
 import styled from 'styled-components';
 
-const Pre = styled.pre`
-  font-family: ${({ theme }) => theme.font.monospace};
-  text-align: left;
+const CodeContainer = styled.div`
   margin: ${({ theme }) => theme.margin}rem 0;
   padding: 1rem;
   overflow: auto;
   border-radius: ${({ theme }) => theme.borderRadius};
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
 
   &::-webkit-scrollbar {
     width: 0.5rem;
@@ -25,12 +25,32 @@ const Pre = styled.pre`
   }
 `;
 
+const Pre = styled.pre`
+  font-family: ${({ theme }) => theme.font.monospace};
+  text-align: left;
+  overflow: initial;
+  float: left;
+  min-width: 100%;
+`;
+
 const Line = styled.div`
-  display: table-row;
+  padding-right: 1rem;
+
+  ${({ highlight }) =>
+    highlight &&
+    `
+    display: block;
+    background-color: #0d2a46;
+    margin-right: -1rem;
+    margin-left: -1rem;
+    padding-left: 0.75rem;
+    border-left: 0.25rem solid #999;
+  `}
 `;
 
 const LineNo = styled.span`
-  display: table-cell;
+  display: inline-block;
+  width: 2.5rem;
   text-align: right;
   padding-right: 1rem;
   user-select: none;
@@ -38,13 +58,15 @@ const LineNo = styled.span`
 `;
 
 const LineContent = styled.span`
-  display: table-cell;
+  display: inline-block;
 `;
 
 function parseOptions(metastring) {
   const defaults = {
     // Show line numbers
-    lineNumbers: false
+    lineNumbers: false,
+    // Array of line numbers to highlight
+    highlight: []
   };
 
   if (metastring) {
@@ -63,6 +85,8 @@ function parseOptions(metastring) {
         if (name && value) {
           if (name === 'lineNumbers') {
             value = value.toLowerCase() === 'true';
+          } else if (name === 'highlight') {
+            value = rangeParser(value);
           }
 
           options[name] = value;
@@ -78,9 +102,7 @@ function parseOptions(metastring) {
 
 /*
   TODO:
-    - line highlighting
     - code copy button
-    - toggle line numbers
     - code block title
     - language tabs
 */
@@ -92,18 +114,24 @@ export default function CodeBlock({ children: { props } }) {
   return (
     <Highlight {...defaultProps} code={code} language={language} theme={theme}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <Pre className={className} style={style}>
-          {tokens.map((line, i) => (
-            <Line key={i} {...getLineProps({ line, key: i })}>
-              {options.lineNumbers && <LineNo>{i + 1}</LineNo>}
-              <LineContent>
-                {line.map((token, key) => (
-                  <span key={key} {...getTokenProps({ token, key })} />
-                ))}
-              </LineContent>
-            </Line>
-          ))}
-        </Pre>
+        <CodeContainer className={className} style={style}>
+          <Pre>
+            {tokens.map((line, i) => (
+              <Line
+                key={i}
+                {...getLineProps({ line, key: i })}
+                highlight={options.highlight.includes(i + 1)}
+              >
+                {options.lineNumbers && <LineNo>{i + 1}</LineNo>}
+                <LineContent>
+                  {line.map((token, key) => (
+                    <span key={key} {...getTokenProps({ token, key })} />
+                  ))}
+                </LineContent>
+              </Line>
+            ))}
+          </Pre>
+        </CodeContainer>
       )}
     </Highlight>
   );
