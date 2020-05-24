@@ -1,6 +1,6 @@
 module.exports = {
   title: 'mdawar.dev',
-  description: 'Web development blog',
+  description: 'Web development, System administration and more.',
   author: {
     name: 'Pierre Mdawar',
     email: 'pierre@mdawar.dev',
