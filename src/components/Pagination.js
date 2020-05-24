@@ -66,7 +66,6 @@ export default styled(Pagination)`
   display: flex;
   justify-content: space-between;
   padding: ${({ theme }) => theme.padding}rem 0;
-  margin: ${({ theme }) => theme.margin}rem 0;
 
   a[rel='next']:only-child {
     margin-left: auto;
