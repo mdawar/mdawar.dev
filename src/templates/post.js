@@ -19,7 +19,7 @@ export default function BlogPostPage({ data, pageContext }) {
           <TagsList tags={frontmatter.tags} />
         </PostInfo>
       </SectionHeader>
-      <Content>
+      <Content spaced>
         <MDXRenderer>{body}</MDXRenderer>
       </Content>
       {(prev || next) && (

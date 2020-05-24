@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const PostContainer = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: ${({ theme }) => theme.margin}rem;
 `;
 
 export const PostInfo = styled.div`

@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { horizontalBg } from '../../styles/global';
 
 export const Content = styled.div`
+  margin-bottom: ${({ theme, spaced }) => (spaced ? theme.margin : 0)}rem;
+
   p:not(:last-child),
   ol:not(:last-child),
   ul:not(:last-child),
@@ -107,7 +109,7 @@ export const SectionHeader = styled.div`
   justify-content: space-between;
   align-items: baseline;
   flex-wrap: wrap;
-  padding-bottom: ${({ theme }) => theme.padding / 2}rem;
+  padding-bottom: ${({ theme }) => theme.padding}rem;
   margin-bottom: ${({ theme }) => theme.padding}rem;
 
   h1,
