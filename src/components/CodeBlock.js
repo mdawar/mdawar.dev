@@ -41,6 +41,41 @@ const LineContent = styled.span`
   display: table-cell;
 `;
 
+function parseOptions(metastring) {
+  const defaults = {
+    // Show line numbers
+    lineNumbers: false
+  };
+
+  if (metastring) {
+    const options = {};
+
+    // Each option is going to be wrapped with curly brackets
+    for (let option of metastring.split('{').map((i) => i.trim())) {
+      if (option) {
+        let [name, value] = option
+          // Remove the closing curly bracket
+          .slice(0, -1)
+          // The option and its value are split with a semicolon
+          .split(':')
+          .map((i) => i.trim());
+
+        if (name && value) {
+          if (name === 'lineNumbers') {
+            value = value.toLowerCase() === 'true';
+          }
+
+          options[name] = value;
+        }
+      }
+    }
+
+    return { ...defaults, ...options };
+  }
+
+  return defaults;
+}
+
 /*
   TODO:
     - line highlighting
@@ -52,6 +87,7 @@ const LineContent = styled.span`
 export default function CodeBlock({ children: { props } }) {
   const code = props.children.trim();
   const language = props.className && props.className.replace('language-', '');
+  const options = parseOptions(props.metastring);
 
   return (
     <Highlight {...defaultProps} code={code} language={language} theme={theme}>
@@ -59,7 +95,7 @@ export default function CodeBlock({ children: { props } }) {
         <Pre className={className} style={style}>
           {tokens.map((line, i) => (
             <Line key={i} {...getLineProps({ line, key: i })}>
-              <LineNo>{i + 1}</LineNo>
+              {options.lineNumbers && <LineNo>{i + 1}</LineNo>}
               <LineContent>
                 {line.map((token, key) => (
                   <span key={key} {...getTokenProps({ token, key })} />
