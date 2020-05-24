@@ -80,4 +80,14 @@ export default styled(Pagination)`
     top: 0;
     left: 0;
   }
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    align-items: center;
+
+    span,
+    a {
+      margin: ${({ theme }) => theme.margin / 4}rem 0;
+    }
+  }
 `;
