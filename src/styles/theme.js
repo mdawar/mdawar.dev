@@ -14,7 +14,7 @@ export default {
 
   lineHeight: 1.6,
   padding: 2,
-  margin: 1.5,
+  margin: 2,
   borderRadius: '3px',
 
   scrollbar: {
