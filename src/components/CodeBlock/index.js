@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import theme from 'prism-react-renderer/themes/nightOwl';
 import { parseOptions } from './utils';
+import Copy from './copy';
 import {
   Container,
   BlockTitle,
@@ -15,7 +16,6 @@ import {
 
 /*
   TODO:
-    - code copy button
     - language tabs
 */
 export default function CodeBlock({ children: { props } }) {
@@ -28,6 +28,7 @@ export default function CodeBlock({ children: { props } }) {
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <Container>
           {options.title && <BlockTitle>{options.title}</BlockTitle>}
+          {options.copy && <Copy content={code} />}
           <CodeContainer className={className} style={style}>
             <Pre>
               {tokens.map((line, i) => (

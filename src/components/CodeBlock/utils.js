@@ -7,7 +7,9 @@ export function parseOptions(metastring) {
     // Show line numbers
     lineNumbers: false,
     // Array of line numbers to highlight
-    highlight: []
+    highlight: [],
+    // Show copy code button
+    copy: false
   };
 
   if (metastring) {
@@ -24,7 +26,7 @@ export function parseOptions(metastring) {
           .map((i) => i.trim());
 
         if (name && value) {
-          if (name === 'lineNumbers') {
+          if (name === 'lineNumbers' || name === 'copy') {
             value = value.toLowerCase() === 'true';
           } else if (name === 'highlight') {
             value = rangeParser(value);

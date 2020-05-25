@@ -62,6 +62,14 @@ export const GlobalStyle = createGlobalStyle`
     height: auto;
     max-width: 100%;
   }
+
+  button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    outline: none;
+  }
 `;
 
 export const horizontalBg = ({ theme }) => css`

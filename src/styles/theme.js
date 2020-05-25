@@ -3,7 +3,12 @@ export default {
     bg: 'white',
     link: 'crimson',
     text: 'darkslategray',
-    border: '#e6e6e6'
+    border: '#e6e6e6',
+    codeTitle: {
+      bg: '#0d2a46',
+      text: '#d6deeb',
+      border: '#66798f'
+    }
   },
 
   font: {
