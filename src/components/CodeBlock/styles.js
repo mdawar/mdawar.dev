@@ -8,6 +8,7 @@ export const Container = styled.div`
 `;
 
 export const CodeContainer = styled.div`
+  position: relative;
   padding: 1rem;
   overflow: auto;
   border-radius: ${({ theme }) => theme.borderRadius};
@@ -23,6 +24,67 @@ export const CodeContainer = styled.div`
 
   &::-webkit-scrollbar-track {
     background: ${({ theme }) => theme.scrollbar.trackColor};
+  }
+
+  /* Language tabs */
+  &[data-language] {
+    padding-top: 2rem;
+  }
+
+  &[data-language]::before {
+    content: attr(data-language);
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    font-size: 0.8rem;
+    line-height: 1;
+    border-radius: ${({ theme }) =>
+      `0 0 ${theme.borderRadius} ${theme.borderRadius}`};
+    letter-spacing: 0.05rem;
+    padding: 0.3rem 0.5rem;
+    text-transform: uppercase;
+    background: linen;
+    color: black;
+  }
+
+  &[data-language='javascript']::before {
+    background: #f7df1e;
+    color: black;
+  }
+
+  &[data-language='jsx']::before {
+    background: #61dafc;
+    color: black;
+  }
+
+  &[data-language='html']::before {
+    background: #f16524;
+    color: white;
+  }
+
+  &[data-language='css']::before {
+    background: #005a9c;
+    color: white;
+  }
+
+  &[data-language='python']::before {
+    background: #306898;
+    color: white;
+  }
+
+  &[data-language='bash']::before {
+    background: #f7df1e;
+    color: black;
+  }
+
+  &[data-language='shell']::before {
+    background: #f7df1e;
+    color: black;
+  }
+
+  &[data-language='graphql']::before {
+    background: #e01e97;
+    color: white;
   }
 `;
 
@@ -86,6 +148,7 @@ export const CopyButton = styled.button`
   padding: 0.2rem 0.4rem;
   border-radius: ${({ theme }) => theme.borderRadius};
   cursor: pointer;
+  z-index: 1;
 
   ${Container}:hover & {
     opacity: 0.3;

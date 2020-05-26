@@ -29,7 +29,11 @@ export default function CodeBlock({ children: { props } }) {
         <Container>
           {options.copy && <Copy content={code} />}
           {options.title && <BlockTitle>{options.title}</BlockTitle>}
-          <CodeContainer className={className} style={style}>
+          <CodeContainer
+            className={className}
+            style={style}
+            data-language={language}
+          >
             <Pre>
               {tokens.map((line, i) => (
                 <Line
