@@ -14,10 +14,6 @@ import {
   LineContent
 } from './styles';
 
-/*
-  TODO:
-    - language tabs
-*/
 export default function CodeBlock({ children: { props } }) {
   const code = props.children.trim();
   const language = props.className && props.className.replace('language-', '');

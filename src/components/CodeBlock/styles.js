@@ -47,6 +47,7 @@ export const CodeContainer = styled.div`
     color: black;
   }
 
+  &[data-language='js']::before,
   &[data-language='javascript']::before {
     background: #f7df1e;
     color: black;
