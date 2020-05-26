@@ -27,8 +27,8 @@ export default function CodeBlock({ children: { props } }) {
     <Highlight {...defaultProps} code={code} language={language} theme={theme}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <Container>
-          {options.title && <BlockTitle>{options.title}</BlockTitle>}
           {options.copy && <Copy content={code} />}
+          {options.title && <BlockTitle>{options.title}</BlockTitle>}
           <CodeContainer className={className} style={style}>
             <Pre>
               {tokens.map((line, i) => (
