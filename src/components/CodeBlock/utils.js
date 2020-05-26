@@ -9,8 +9,12 @@ export function parseOptions(metastring) {
     // Array of line numbers to highlight
     highlight: [],
     // Show copy code button
-    copy: false
+    copy: false,
+    // Show a language tab
+    languageTab: true
   };
+
+  const booleanOptions = ['lineNumbers', 'copy', 'languageTab'];
 
   if (metastring) {
     const options = {};
@@ -26,7 +30,7 @@ export function parseOptions(metastring) {
           .map((i) => i.trim());
 
         if (name && value) {
-          if (name === 'lineNumbers' || name === 'copy') {
+          if (booleanOptions.includes(name)) {
             value = value.toLowerCase() === 'true';
           } else if (name === 'highlight') {
             value = rangeParser(value);

@@ -32,7 +32,7 @@ export default function CodeBlock({ children: { props } }) {
           <CodeContainer
             className={className}
             style={style}
-            data-language={language}
+            data-language={options.languageTab ? language : null}
           >
             <Pre>
               {tokens.map((line, i) => (
