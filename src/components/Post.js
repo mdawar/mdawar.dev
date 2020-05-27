@@ -16,7 +16,7 @@ function Post({ post }) {
         <time>{frontmatter.date}</time>
         <TagsList tags={frontmatter.tags} />
       </PostInfo>
-      <p>{excerpt}</p>
+      <p>{frontmatter.description || excerpt}</p>
     </PostContainer>
   );
 }

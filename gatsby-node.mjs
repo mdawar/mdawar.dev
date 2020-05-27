@@ -72,6 +72,7 @@ export const createPages = async ({ graphql, actions }) => {
           node {
             frontmatter {
               title
+              description
               tags
               date(formatString: "MMMM DD, YYYY")
             }
