@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
+import SEO from '../components/seo';
 import Post from '../components/Post';
 import { SectionHeader } from '../styles/elements/content';
 
 export default function IndexPage({ data }) {
-  const posts = data.allMdx.nodes;
+  const {
+    allMdx: { nodes: posts },
+    site: { siteMetadata: site }
+  } = data;
 
   return (
     <>
+      <SEO title={site.author.name} path="/" />
       <section>
         <SectionHeader>
           <h2>Latest Posts</h2>
@@ -39,12 +44,27 @@ IndexPage.propTypes = {
   data: PropTypes.shape({
     allMdx: PropTypes.shape({
       nodes: PropTypes.array.isRequired
+    }).isRequired,
+    site: PropTypes.shape({
+      siteMetadata: PropTypes.shape({
+        author: PropTypes.shape({
+          name: PropTypes.string.isRequired
+        }).isRequired
+      }).isRequired
     }).isRequired
   }).isRequired
 };
 
 export const query = graphql`
   query BlogPosts {
+    site {
+      siteMetadata {
+        author {
+          name
+        }
+      }
+    }
+
     allMdx(
       filter: { frontmatter: { published: { eq: true } } }
       sort: { fields: frontmatter___date, order: DESC }
