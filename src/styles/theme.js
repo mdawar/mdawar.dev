@@ -5,9 +5,9 @@ export default {
     text: 'darkslategray',
     border: '#e6e6e6',
     codeTitle: {
-      bg: '#0d2a46',
+      bg: '#131313',
       text: '#d6deeb',
-      border: '#66798f'
+      border: '#2d2d2d'
     }
   },
 
