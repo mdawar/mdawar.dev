@@ -4,10 +4,12 @@ export default {
     link: 'crimson',
     text: 'darkslategray',
     border: '#e6e6e6',
-    codeTitle: {
-      bg: '#131313',
-      text: '#d6deeb',
-      border: '#2d2d2d'
+    code: {
+      title: {
+        bg: '#131313',
+        text: '#d6deeb',
+        border: '#2d2d2d'
+      }
     }
   },
 

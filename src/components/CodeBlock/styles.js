@@ -125,10 +125,10 @@ export const LineContent = styled.span`
 `;
 
 export const BlockTitle = styled.div`
-  background: ${({ theme }) => theme.color.codeTitle.bg};
-  color: ${({ theme }) => theme.color.codeTitle.text};
+  background: ${({ theme }) => theme.color.code.title.bg};
+  color: ${({ theme }) => theme.color.code.title.text};
   padding: 1rem;
-  border-bottom: 1px solid ${({ theme }) => theme.color.codeTitle.border};
+  border-bottom: 1px solid ${({ theme }) => theme.color.code.title.border};
   border-top-left-radius: ${({ theme }) => theme.borderRadius};
   border-top-right-radius: ${({ theme }) => theme.borderRadius};
 
@@ -144,8 +144,8 @@ export const CopyButton = styled.button`
   right: 1rem;
   opacity: 0;
   transition: opacity 0.3s;
-  background: ${({ theme }) => theme.color.codeTitle.text};
-  color: ${({ theme }) => theme.color.codeTitle.bg};
+  background: ${({ theme }) => theme.color.code.title.text};
+  color: ${({ theme }) => theme.color.code.title.bg};
   padding: 0.2rem 0.4rem;
   border-radius: ${({ theme }) => theme.borderRadius};
   cursor: pointer;
