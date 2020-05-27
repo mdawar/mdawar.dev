@@ -9,6 +9,14 @@ export default {
         bg: '#131313',
         text: '#d6deeb',
         border: '#2d2d2d'
+      },
+      scrollbar: {
+        track: '#4b4e57',
+        thumb: '#3498db'
+      },
+      highlight: {
+        bg: '#0d2a46',
+        border: '#3498db'
       }
     }
   },
@@ -23,11 +31,6 @@ export default {
   padding: 2,
   margin: 2,
   borderRadius: '3px',
-
-  scrollbar: {
-    trackColor: '#4b4e57',
-    thumbColor: '#3498db'
-  },
 
   table: {
     borderColor: '#e6e6e6',

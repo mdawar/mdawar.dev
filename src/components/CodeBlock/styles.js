@@ -19,11 +19,11 @@ export const CodeContainer = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.scrollbar.thumbColor};
+    background: ${({ theme }) => theme.color.code.scrollbar.thumb};
   }
 
   &::-webkit-scrollbar-track {
-    background: ${({ theme }) => theme.scrollbar.trackColor};
+    background: ${({ theme }) => theme.color.code.scrollbar.track};
   }
 
   /* Language tabs */
@@ -99,15 +99,15 @@ export const Pre = styled.pre`
 export const Line = styled.div`
   padding-right: 1rem;
 
-  ${({ highlight }) =>
+  ${({ highlight, theme }) =>
     highlight &&
     `
     display: block;
-    background-color: #0d2a46;
+    background-color: ${theme.color.code.highlight.bg};
     margin-right: -1rem;
     margin-left: -1rem;
     padding-left: 0.75rem;
-    border-left: 0.25rem solid #999;
+    border-left: 0.25rem solid ${theme.color.code.highlight.border};
   `}
 `;
 
