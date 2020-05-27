@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql, useStaticQuery, Link } from 'gatsby';
+import SEO from './seo';
 import {
   Container,
   SideBar,
@@ -29,38 +30,41 @@ export default function Layout({ children }) {
   );
 
   return (
-    <Container>
-      <SideBar>
-        <Header>
-          <h1>
-            <Link to="/">{title}</Link>
-          </h1>
-          <p>{description}</p>
-        </Header>
-        <MainMenu>
-          <ul>
-            <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="/blog">Blog</NavLink>
-            </li>
-            <li>
-              <NavLink to="/about">About me</NavLink>
-            </li>
-            <li>
-              <NavLink to="/contact">Contact me</NavLink>
-            </li>
-          </ul>
-        </MainMenu>
-      </SideBar>
-      <MainContent>{children}</MainContent>
-      <Footer>
-        <p>&copy; 2020 All rights reserved</p>
-        <p>
-          Made with <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </p>
-      </Footer>
-    </Container>
+    <>
+      <SEO />
+      <Container>
+        <SideBar>
+          <Header>
+            <h1>
+              <Link to="/">{title}</Link>
+            </h1>
+            <p>{description}</p>
+          </Header>
+          <MainMenu>
+            <ul>
+              <li>
+                <NavLink to="/">Home</NavLink>
+              </li>
+              <li>
+                <NavLink to="/blog">Blog</NavLink>
+              </li>
+              <li>
+                <NavLink to="/about">About me</NavLink>
+              </li>
+              <li>
+                <NavLink to="/contact">Contact me</NavLink>
+              </li>
+            </ul>
+          </MainMenu>
+        </SideBar>
+        <MainContent>{children}</MainContent>
+        <Footer>
+          <p>&copy; 2020 All rights reserved</p>
+          <p>
+            Made with <a href="https://www.gatsbyjs.org">Gatsby</a>
+          </p>
+        </Footer>
+      </Container>
+    </>
   );
 }
