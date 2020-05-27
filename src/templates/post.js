@@ -2,17 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
+import SEO from '../components/seo';
 import TagsList from '../components/TagsList';
 import Pagination from '../components/Pagination';
 import { SectionHeader, Content } from '../styles/elements/content';
 import { PostInfo } from '../styles/elements/post';
 
 export default function BlogPostPage({ data, pageContext }) {
-  const { frontmatter, body } = data.mdx;
+  const {
+    mdx: { frontmatter, body },
+    site: { siteMetadata: site }
+  } = data;
   const { prev, next } = pageContext;
 
   return (
     <>
+      <SEO
+        title={frontmatter.title}
+        author={site.author.name}
+        description={frontmatter.description}
+        keywords={frontmatter.tags}
+      />
       <SectionHeader>
         <PostInfo>
           <h1>{frontmatter.title}</h1>
@@ -55,9 +65,18 @@ export const query = graphql`
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         title
+        description
         tags
       }
       body
+    }
+
+    site {
+      siteMetadata {
+        author {
+          name
+        }
+      }
     }
   }
 `;

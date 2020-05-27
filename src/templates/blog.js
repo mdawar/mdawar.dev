@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
+import SEO from '../components/seo';
 import Post from '../components/Post';
 import Pagination from '../components/Pagination';
 import { SectionHeader } from '../styles/elements/content';
@@ -12,6 +13,17 @@ export default function BlogPostsList({ pageContext }) {
 
   return (
     <>
+      <SEO
+        title="Blog"
+        description="Blog about web development, system administration, open source software and many other tech stuff"
+        keywords={[
+          'Web development',
+          'System Administration',
+          'Linux',
+          'Open Source Software',
+          'Technology'
+        ]}
+      />
       <SectionHeader>
         <h2>Blog</h2>
         <Link to="/blog/tags">All tags</Link>

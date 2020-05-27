@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, graphql } from 'gatsby';
+import SEO from '../components/seo';
 import { SectionHeader, Content } from '../styles/elements/content';
 
 export default function TagPage({ data, pageContext }) {
@@ -9,6 +10,11 @@ export default function TagPage({ data, pageContext }) {
 
   return (
     <>
+      <SEO
+        title={tag}
+        description={`Articles published and tagged with ${tag}`}
+        keywords={[tag]}
+      />
       <SectionHeader>
         <h2>
           {tag}

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
+import SEO from '../components/seo';
 import Pagination from '../components/Pagination';
 import { slugify } from '../utils';
 import { SectionHeader, Content } from '../styles/elements/content';
@@ -13,6 +14,7 @@ export default function TagsPage({ pageContext }) {
 
   return (
     <>
+      <SEO title="All Tags" description="List of all the blog tags" />
       <SectionHeader>
         <h2>Tags</h2>
         <Link to="/blog">All posts</Link>
