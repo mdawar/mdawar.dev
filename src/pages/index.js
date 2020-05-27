@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import Post from '../components/Post';
 import { SectionHeader } from '../styles/elements/content';
@@ -33,6 +34,14 @@ export default function IndexPage({ data }) {
     </>
   );
 }
+
+IndexPage.propTypes = {
+  data: PropTypes.shape({
+    allMdx: PropTypes.shape({
+      nodes: PropTypes.array.isRequired
+    }).isRequired
+  }).isRequired
+};
 
 export const query = graphql`
   query BlogPosts {

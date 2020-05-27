@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, graphql } from 'gatsby';
 import { SectionHeader, Content } from '../styles/elements/content';
 
@@ -32,6 +33,18 @@ export default function TagPage({ data, pageContext }) {
     </>
   );
 }
+
+TagPage.propTypes = {
+  data: PropTypes.shape({
+    allMdx: PropTypes.shape({
+      posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+      totalCount: PropTypes.number.isRequired
+    })
+  }),
+  pageContext: PropTypes.shape({
+    tag: PropTypes.string.isRequired
+  }).isRequired
+};
 
 export const query = graphql`
   query PostsByTag($tag: String!) {

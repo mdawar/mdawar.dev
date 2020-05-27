@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import TagsList from '../components/TagsList';
@@ -33,6 +34,20 @@ export default function BlogPostPage({ data, pageContext }) {
     </>
   );
 }
+
+BlogPostPage.propTypes = {
+  data: PropTypes.shape({
+    mdx: PropTypes.shape({
+      frontmatter: PropTypes.object.isRequired,
+      body: PropTypes.string.isRequired
+    })
+  }),
+  pageContext: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+    prev: PropTypes.object,
+    next: PropTypes.object
+  }).isRequired
+};
 
 export const query = graphql`
   query BlogPost($slug: String!) {

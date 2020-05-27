@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import Pagination from '../components/Pagination';
 import { slugify } from '../utils';
@@ -38,3 +39,11 @@ export default function TagsPage({ pageContext }) {
     </>
   );
 }
+
+TagsPage.propTypes = {
+  pageContext: PropTypes.shape({
+    currentPage: PropTypes.number.isRequired,
+    totalPages: PropTypes.number.isRequired,
+    pageItems: PropTypes.arrayOf(PropTypes.object).isRequired
+  }).isRequired
+};
