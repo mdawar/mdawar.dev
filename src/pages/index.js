@@ -13,7 +13,12 @@ export default function IndexPage({ data }) {
 
   return (
     <>
-      <SEO title={site.author.name} path="/" />
+      <SEO
+        title={site.author.name}
+        description={site.description}
+        keywords={site.keywords}
+        path="/"
+      />
       <section>
         <SectionHeader>
           <h2>Latest Posts</h2>
@@ -59,6 +64,8 @@ export const query = graphql`
   query BlogPosts {
     site {
       siteMetadata {
+        description
+        keywords
         author {
           name
         }

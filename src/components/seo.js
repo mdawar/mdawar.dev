@@ -12,8 +12,6 @@ export default function SEO({ title, author, description, keywords, path }) {
         site {
           siteMetadata {
             title
-            description
-            keywords
             url
           }
         }
@@ -27,8 +25,8 @@ export default function SEO({ title, author, description, keywords, path }) {
       <meta charSet="utf-8" />
       {title && <title>{title}</title>}
       {author && <meta name="author" content={author} />}
-      <meta name="description" content={description || site.description} />
-      <meta name="keywords" content={(keywords || site.keywords).join(', ')} />
+      {description && <meta name="description" content={description} />}
+      {keywords && <meta name="keywords" content={keywords.join(', ')} />}
       {path && <link rel="canonical" href={`${site.url}${path}`} />}
     </Helmet>
   );
