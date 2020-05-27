@@ -1,12 +1,12 @@
 import React from 'react';
-import { graphql, Link } from 'gatsby';
+import PropTypes from 'prop-types';
+import { Link } from 'gatsby';
 import Post from '../components/Post';
 import Pagination from '../components/Pagination';
 import { SectionHeader } from '../styles/elements/content';
 
-export default function BlogPostsList({ data, pageContext }) {
-  const posts = data.allMdx.nodes;
-  const { currentPage, totalPages } = pageContext;
+export default function BlogPostsList({ pageContext }) {
+  const { pageItems: posts, currentPage, totalPages } = pageContext;
   const prevPage = currentPage - 1 === 1 ? '/blog' : `/blog/${currentPage - 1}`;
   const nextPage = `/blog/${currentPage + 1}`;
 
@@ -16,8 +16,8 @@ export default function BlogPostsList({ data, pageContext }) {
         <h2>Blog</h2>
         <Link to="/blog/tags">All tags</Link>
       </SectionHeader>
-      {posts.map((post) => (
-        <Post key={post.id} post={post} />
+      {posts.map(({ node }) => (
+        <Post key={node.id} post={node} />
       ))}
       {totalPages > 1 && (
         <Pagination
@@ -31,26 +31,10 @@ export default function BlogPostsList({ data, pageContext }) {
   );
 }
 
-export const query = graphql`
-  query BlogPostsList($limit: Int!, $skip: Int!) {
-    allMdx(
-      filter: { frontmatter: { published: { eq: true } } }
-      sort: { fields: frontmatter___date, order: DESC }
-      limit: $limit
-      skip: $skip
-    ) {
-      nodes {
-        frontmatter {
-          title
-          tags
-          date(formatString: "MMMM DD, YYYY")
-        }
-        id
-        excerpt
-        fields {
-          slug
-        }
-      }
-    }
-  }
-`;
+BlogPostsList.propTypes = {
+  pageContext: PropTypes.shape({
+    currentPage: PropTypes.number.isRequired,
+    totalPages: PropTypes.number.isRequired,
+    pageItems: PropTypes.arrayOf(PropTypes.object).isRequired
+  }).isRequired
+};

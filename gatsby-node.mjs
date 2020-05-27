@@ -72,7 +72,11 @@ export const createPages = async ({ graphql, actions }) => {
           node {
             frontmatter {
               title
+              tags
+              date(formatString: "MMMM DD, YYYY")
             }
+            id
+            excerpt
             fields {
               slug
             }
