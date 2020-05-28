@@ -20,6 +20,15 @@ module.exports = {
         extensions: ['.mdx', '.md'],
         gatsbyRemarkPlugins: [
           {
+            // Copy the files linked to from the MDX files to the `public` directory
+            // By default these file extensions are ignored: png, jpg, jpeg, bmp, tiff
+            // because the images handled by `gatsby-remark-images`
+            resolve: 'gatsby-remark-copy-linked-files',
+            options: {
+              destinationDir: 'blog-content'
+            }
+          },
+          {
             // Process images in the MDX files using sharp (only JPEG and PNG)
             // GIFs and SVGs are not supported
             resolve: 'gatsby-remark-images',
@@ -31,8 +40,8 @@ module.exports = {
               loading: 'lazy',
               linkImagesToOriginal: true,
               showCaptions: false
-            },
-          },
+            }
+          }
         ]
       }
     }
