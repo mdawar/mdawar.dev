@@ -35,7 +35,8 @@ export function parseOptions(metastring) {
           // Remove the closing curly bracket
           .slice(0, -1)
           // The option and its value are split with a semicolon
-          .split(':')
+          // Using Regex to support having a colon in the option value
+          .split(/:(.+)/)
           .map((i) => i.trim());
 
         if (name && value) {
