@@ -111,13 +111,16 @@ export const Line = styled.div`
   `}
 `;
 
-export const LineNo = styled.span`
+export const LinePrefix = styled.span`
   display: inline-block;
-  width: 2.5rem;
   text-align: right;
   padding-right: 1rem;
   user-select: none;
   opacity: 0.5;
+`;
+
+export const LineNo = styled(LinePrefix)`
+  width: 2.5rem;
 `;
 
 export const LineContent = styled.span`

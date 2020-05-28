@@ -10,6 +10,7 @@ import {
   CodeContainer,
   Pre,
   Line,
+  LinePrefix,
   LineNo,
   LineContent
 } from './styles';
@@ -38,6 +39,12 @@ export default function CodeBlock({ children: { props } }) {
                   highlight={options.highlight.includes(i + 1)}
                 >
                   {options.lineNumbers && <LineNo>{i + 1}</LineNo>}
+                  {options.terminal &&
+                    // Mark all the lines as terminal prompts by default
+                    (options.promptLines.length === 0 ||
+                      options.promptLines.includes(i + 1)) && (
+                      <LinePrefix>{options.ps1}</LinePrefix>
+                    )}
                   <LineContent>
                     {line.map((token, key) => (
                       <span key={key} {...getTokenProps({ token, key })} />

@@ -11,10 +11,19 @@ export function parseOptions(metastring) {
     // Show copy code button
     copy: false,
     // Show a language tab
-    languageTab: true
+    languageTab: true,
+    // Mark the code as a terminal
+    terminal: false,
+    // Terminal prompt string (PS1)
+    ps1: '$',
+    // Array of line numbers to mark as the terminal prompt
+    // All the other lines will be marked as the output
+    // To be used with `terminal: true`
+    promptLines: []
   };
 
-  const booleanOptions = ['lineNumbers', 'copy', 'languageTab'];
+  const booleanOptions = ['lineNumbers', 'copy', 'languageTab', 'terminal'];
+  const rangeOptions = ['highlight', 'promptLines'];
 
   if (metastring) {
     const options = {};
@@ -32,7 +41,7 @@ export function parseOptions(metastring) {
         if (name && value) {
           if (booleanOptions.includes(name)) {
             value = value.toLowerCase() === 'true';
-          } else if (name === 'highlight') {
+          } else if (rangeOptions.includes(name)) {
             value = rangeParser(value);
           }
 
