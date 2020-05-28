@@ -22,6 +22,11 @@ export default function BlogPostPage({ data, pageContext }) {
         author={site.author.name}
         description={frontmatter.description}
         keywords={frontmatter.tags}
+        article={{
+          published_time: frontmatter.date,
+          author: site.author.name,
+          tags: frontmatter.tags
+        }}
       />
       <SectionHeader>
         <PostInfo>
