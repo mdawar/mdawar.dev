@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import SEO from '../components/seo';
 import Post from '../components/Post';
-import { SectionHeader } from '../styles/elements/content';
+import { Section, SectionHeader } from '../styles/elements/content';
 
 export default function IndexPage({ data }) {
   const {
@@ -19,7 +19,7 @@ export default function IndexPage({ data }) {
         keywords={site.keywords}
         path="/"
       />
-      <section>
+      <Section>
         <SectionHeader>
           <h2>Latest Posts</h2>
           <Link to="/blog">All posts</Link>
@@ -27,8 +27,8 @@ export default function IndexPage({ data }) {
         {posts.map((post) => (
           <Post key={post.id} post={post} />
         ))}
-      </section>
-      <section>
+      </Section>
+      <Section>
         <SectionHeader>
           <h2>Projects</h2>
         </SectionHeader>
@@ -40,7 +40,7 @@ export default function IndexPage({ data }) {
           <a href="https://github.com/mdawar/rq-exporter">RQ Exporter</a>
         </h3>
         <p>Prometheus metrics exporter for Python RQ (Redis Queue).</p>
-      </section>
+      </Section>
     </>
   );
 }

@@ -107,6 +107,10 @@ export const Content = styled.div`
   }
 `;
 
+export const Section = styled.section`
+  margin-bottom: ${({ theme }) => theme.margin}rem;
+`;
+
 export const SectionHeader = styled.div`
   position: relative;
   display: flex;
