@@ -4,7 +4,7 @@ import { Link } from 'gatsby';
 import SEO from '../components/seo';
 import Post from '../components/Post';
 import Pagination from '../components/Pagination';
-import { SectionHeader } from '../styles/elements/content';
+import { Section, SectionHeader } from '../styles/elements/content';
 
 export default function BlogPostsList({ pageContext }) {
   const { pageItems: posts, currentPage, totalPages } = pageContext;
@@ -24,13 +24,15 @@ export default function BlogPostsList({ pageContext }) {
           'Technology'
         ]}
       />
-      <SectionHeader>
-        <h2>Blog</h2>
-        <Link to="/blog/tags">All tags</Link>
-      </SectionHeader>
-      {posts.map(({ node }) => (
-        <Post key={node.id} post={node} />
-      ))}
+      <Section>
+        <SectionHeader>
+          <h2>Blog</h2>
+          <Link to="/blog/tags">All tags</Link>
+        </SectionHeader>
+        {posts.map(({ node }) => (
+          <Post key={node.id} post={node} />
+        ))}
+      </Section>
       {totalPages > 1 && (
         <Pagination
           currentPage={currentPage}

@@ -5,7 +5,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import SEO from '../components/seo';
 import TagsList from '../components/TagsList';
 import Pagination from '../components/Pagination';
-import { SectionHeader, Content } from '../styles/elements/content';
+import { Section, SectionHeader, Content } from '../styles/elements/content';
 import { PostInfo } from '../styles/elements/post';
 
 export default function BlogPostPage({ data, pageContext }) {
@@ -28,16 +28,18 @@ export default function BlogPostPage({ data, pageContext }) {
           tags: frontmatter.tags
         }}
       />
-      <SectionHeader>
-        <PostInfo>
-          <h1>{frontmatter.title}</h1>
-          <time>{frontmatter.date}</time>
-          <TagsList tags={frontmatter.tags} />
-        </PostInfo>
-      </SectionHeader>
-      <Content spaced>
-        <MDXRenderer>{body}</MDXRenderer>
-      </Content>
+      <Section>
+        <SectionHeader>
+          <PostInfo>
+            <h1>{frontmatter.title}</h1>
+            <time>{frontmatter.date}</time>
+            <TagsList tags={frontmatter.tags} />
+          </PostInfo>
+        </SectionHeader>
+        <Content>
+          <MDXRenderer>{body}</MDXRenderer>
+        </Content>
+      </Section>
       {(prev || next) && (
         <Pagination
           prev={prev && `← ${prev.frontmatter.title}`}

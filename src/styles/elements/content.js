@@ -2,12 +2,6 @@ import styled from 'styled-components';
 import { horizontalBg } from '../../styles/global';
 
 export const Content = styled.div`
-  ${({ theme, spaced }) =>
-    spaced &&
-    `
-    margin-bottom: ${theme.margin}rem;
-  `}
-
   p:not(:last-child),
   ol:not(:last-child),
   ul:not(:last-child),
