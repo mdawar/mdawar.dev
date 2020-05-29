@@ -4,6 +4,7 @@ import { graphql, Link } from 'gatsby';
 import SEO from '../components/seo';
 import Post from '../components/Post';
 import { Section, SectionHeader } from '../styles/elements/content';
+import Projects from '../components/Projects';
 
 export default function IndexPage({ data }) {
   const {
@@ -28,19 +29,7 @@ export default function IndexPage({ data }) {
           <Post key={post.id} post={post} />
         ))}
       </Section>
-      <Section>
-        <SectionHeader>
-          <h2>Projects</h2>
-        </SectionHeader>
-        <h3>
-          <a href="https://github.com/mdawar/terraformjs">TerraformJS</a>
-        </h3>
-        <p>Infrastructure as code using JavaScript and Terraform.</p>
-        <h3>
-          <a href="https://github.com/mdawar/rq-exporter">RQ Exporter</a>
-        </h3>
-        <p>Prometheus metrics exporter for Python RQ (Redis Queue).</p>
-      </Section>
+      <Projects />
     </>
   );
 }
