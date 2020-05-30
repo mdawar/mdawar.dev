@@ -63,7 +63,10 @@ export const GlobalStyle = createGlobalStyle`
     max-width: 100%;
   }
 
-  button {
+  button,
+  input,
+  textarea,
+  select {
     margin: 0;
     padding: 0;
     border: 0;

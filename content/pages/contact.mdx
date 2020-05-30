@@ -1,0 +1,19 @@
+---
+title: Contact me
+description: Contact me for any questions, feedback or to discuss your next project
+keywords: ["Web Developer", "Linux System Administrator", "Freelancer"]
+---
+import { Form, Button } from '../../src/styles/elements/form';
+
+Contact me if you have any questions, feedback or to discuss your next project using this form below or directly on this email address: [pierre@mdawar.dev](mailto:pierre@mdawar.dev)
+
+<Form name="contact" method="post" data-netlify="true" netlify-honeypot="bot-field">
+  <input name="bot-field" hidden />
+  <label htmlFor="email">Email</label>
+  <input id="email" type="email" name="email" placeholder="Your email address" required />
+  <label htmlFor="subject">Subject</label>
+  <input id="subject" type="text" name="subject" placeholder="What your message is about?" required />
+  <label htmlFor="message">Message</label>
+  <textarea id="message" name="message" rows="12" placeholder="Your questions, feedback or just say Hi" required />
+  <Button type="submit">Send Message</Button>
+</Form>

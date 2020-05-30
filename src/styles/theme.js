@@ -18,6 +18,16 @@ export default {
         bg: '#0d2a46',
         border: '#3498db'
       }
+    },
+    form: {
+      border: '#dbdbdb',
+      borderFocus: '#4c9ed2',
+      borderHover: '#b5b5b5',
+      boxShadowFocus: 'rgba(76, 158, 210, 0.25)'
+    },
+    button: {
+      bg: 'darkslategray',
+      text: 'white'
     }
   },
 
