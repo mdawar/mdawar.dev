@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { graphql, useStaticQuery, Link } from 'gatsby';
 import SEO from './seo';
 import {
@@ -14,7 +15,7 @@ import {
 export default function Layout({ children }) {
   const {
     site: {
-      siteMetadata: { title, description }
+      siteMetadata: { title, description, navigation }
     }
   } = useStaticQuery(
     graphql`
@@ -23,6 +24,10 @@ export default function Layout({ children }) {
           siteMetadata {
             title
             description
+            navigation {
+              link
+              name
+            }
           }
         }
       }
@@ -42,24 +47,17 @@ export default function Layout({ children }) {
           </Header>
           <MainMenu>
             <ul>
-              <li>
-                <NavLink to="/">Home</NavLink>
-              </li>
-              <li>
-                <NavLink to="/blog">Blog</NavLink>
-              </li>
-              <li>
-                <NavLink to="/about">About me</NavLink>
-              </li>
-              <li>
-                <NavLink to="/contact">Contact me</NavLink>
-              </li>
+              {navigation.map((item) => (
+                <li key={item.link}>
+                  <NavLink to={item.link}>{item.name}</NavLink>
+                </li>
+              ))}
             </ul>
           </MainMenu>
         </SideBar>
         <MainContent>{children}</MainContent>
         <Footer>
-          <p>&copy; 2020 All rights reserved</p>
+          <p>&copy; {new Date().getFullYear()} All rights reserved</p>
           <p>
             Made with <a href="https://www.gatsbyjs.org">Gatsby</a>
           </p>
@@ -68,3 +66,7 @@ export default function Layout({ children }) {
     </>
   );
 }
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired
+};

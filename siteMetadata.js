@@ -13,5 +13,23 @@ module.exports = {
     email: 'pierre@mdawar.dev',
     twitter: 'pmdawar',
     github: 'mdawar'
-  }
+  },
+  navigation: [
+    {
+      link: '/',
+      name: 'Home'
+    },
+    {
+      link: '/blog',
+      name: 'Blog'
+    },
+    {
+      link: '/about',
+      name: 'About me'
+    },
+    {
+      link: '/contact',
+      name: 'Contact me'
+    }
+  ]
 };
