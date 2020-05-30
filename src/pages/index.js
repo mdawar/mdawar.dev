@@ -62,7 +62,10 @@ export const query = graphql`
     }
 
     allMdx(
-      filter: { frontmatter: { published: { eq: true } } }
+      filter: {
+        fields: { collection: { eq: "posts" } }
+        frontmatter: { published: { eq: true } }
+      }
       sort: { fields: frontmatter___date, order: DESC }
       limit: 3
     ) {

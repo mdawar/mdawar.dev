@@ -38,15 +38,26 @@ export const onCreateNode = ({ node, actions, getNode }) => {
 
   // Create a `slug` field for the MDX nodes
   if (node.internal.type === 'Mdx') {
+    const parent = getNode(node.parent);
+    // `sourceInstanceName` is the `name` option set on the `gatsby-source-filesystem` plugin
+    const collection = parent.sourceInstanceName;
+
     // Create a path to be used as the slug from the file’s path on the file system
     const slug = createFilePath({ node, getNode, trailingSlash: false });
 
-    // The new field is placed under the `fields` key on the extended node object
-    // accessible at `node.fields.slug`
+    // The new fields are placed under the `fields` key on the extended node object
+    // accessible at `node.fields.slug` and `node.fields.collection`
     createNodeField({
       node,
       name: 'slug',
-      value: `/blog${slug}`
+      value: collection === 'posts' ? `/blog${slug}` : slug
+    });
+
+    // Add a collection field to be able to query by type (posts, pages)
+    createNodeField({
+      node,
+      name: 'collection',
+      value: collection
     });
   }
 };
@@ -59,13 +70,17 @@ export const createPages = async ({ graphql, actions }) => {
     blog: path.resolve('./src/templates/blog.js'),
     post: path.resolve('./src/templates/post.js'),
     tags: path.resolve('./src/templates/tags.js'),
-    tag: path.resolve('./src/templates/tag.js')
+    tag: path.resolve('./src/templates/tag.js'),
+    page: path.resolve('./src/templates/page.js')
   };
 
   const result = await graphql(`
     query {
       posts: allMdx(
-        filter: { frontmatter: { published: { eq: true } } }
+        filter: {
+          fields: { collection: { eq: "posts" } }
+          frontmatter: { published: { eq: true } }
+        }
         sort: { fields: frontmatter___date, order: DESC }
       ) {
         edges {
@@ -85,10 +100,20 @@ export const createPages = async ({ graphql, actions }) => {
         }
       }
 
-      tags: allMdx {
+      tags: allMdx(filter: { fields: { collection: { eq: "posts" } } }) {
         group(field: frontmatter___tags) {
           name: fieldValue
           totalCount
+        }
+      }
+
+      pages: allMdx(filter: { fields: { collection: { eq: "pages" } } }) {
+        edges {
+          node {
+            fields {
+              slug
+            }
+          }
         }
       }
     }
@@ -142,5 +167,18 @@ export const createPages = async ({ graphql, actions }) => {
     template: templates.tags,
     items: tags,
     itemsPerPage: 100
+  });
+
+  const pages = result.data.pages.edges;
+
+  // Create the pages
+  pages.forEach(({ node }) => {
+    createPage({
+      path: node.fields.slug,
+      component: templates.page,
+      context: {
+        slug: node.fields.slug
+      }
+    });
   });
 };
