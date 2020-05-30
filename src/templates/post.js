@@ -21,7 +21,7 @@ export default function BlogPostPage({ data, pageContext }) {
         title={frontmatter.title}
         author={site.author.name}
         description={frontmatter.description}
-        keywords={frontmatter.tags}
+        keywords={frontmatter.keywords || frontmatter.tags}
         article={{
           published_time: frontmatter.date,
           author: site.author.name,
@@ -73,6 +73,7 @@ export const query = graphql`
         date(formatString: "MMMM DD, YYYY")
         title
         description
+        keywords
         tags
       }
       body
