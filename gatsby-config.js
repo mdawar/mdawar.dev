@@ -51,6 +51,22 @@ module.exports = {
           }
         ]
       }
+    },
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        name: siteMetadata.name,
+        short_name: siteMetadata.name,
+        start_url: '/',
+        background_color: '#ffffff',
+        theme_color: '#2f4f4f',
+        display: 'standalone',
+        icon: 'src/images/icon.png',
+        include_favicon: true,
+        // Use cache busting by file name instead of URL query
+        cache_busting_mode: 'name',
+        theme_color_in_head: true
+      }
     }
   ]
 };
