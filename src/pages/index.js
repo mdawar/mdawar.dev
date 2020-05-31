@@ -50,7 +50,7 @@ IndexPage.propTypes = {
 };
 
 export const query = graphql`
-  query BlogPosts {
+  query IndexPage {
     site {
       siteMetadata {
         description
