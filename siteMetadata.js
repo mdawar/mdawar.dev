@@ -1,4 +1,5 @@
 module.exports = {
+  name: 'mdawar.dev',
   title: 'mdawar.dev',
   description: 'Web development, System administration and more.',
   keywords: [

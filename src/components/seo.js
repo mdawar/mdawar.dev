@@ -18,7 +18,7 @@ export default function SEO({
       query {
         site {
           siteMetadata {
-            title
+            name
             url
           }
         }
@@ -27,7 +27,7 @@ export default function SEO({
   );
 
   return (
-    <Helmet titleTemplate={`%s - ${site.title}`} defaultTitle={site.title}>
+    <Helmet titleTemplate={`%s - ${site.name}`} defaultTitle={site.name}>
       <html lang="en" />
       <meta charSet="utf-8" />
 
@@ -39,7 +39,7 @@ export default function SEO({
 
       <meta property="og:type" content={article ? 'article' : 'website'} />
       <meta property="og:locale" content="en_US" />
-      <meta property="og:site_name" content={site.title} />
+      <meta property="og:site_name" content={site.name} />
       {title && <meta property="og:title" content={title} />}
       {description && <meta property="og:description" content={description} />}
       {path && <meta property="og:url" content={`${site.url}${path}`} />}
