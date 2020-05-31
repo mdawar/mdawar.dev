@@ -59,7 +59,8 @@ export default function Layout({ children }) {
         <Footer>
           <p>&copy; {new Date().getFullYear()} All rights reserved</p>
           <p>
-            Made with <a href="https://www.gatsbyjs.org">Gatsby</a>
+            Made with <a href="https://www.gatsbyjs.org">Gatsby</a> and hosted
+            on <a href="https://www.netlify.com/">Netlify</a>
           </p>
         </Footer>
       </Container>
