@@ -4,7 +4,7 @@ import { Link } from 'gatsby';
 import SEO from '../components/seo';
 import Pagination from '../components/Pagination';
 import { slugify } from '../utils';
-import { SectionHeader, Content } from '../styles/elements/content';
+import { Section, SectionHeader, Content } from '../styles/elements/content';
 
 export default function TagsPage({ pageContext }) {
   const { pageItems: tags, currentPage, totalPages } = pageContext;
@@ -15,21 +15,23 @@ export default function TagsPage({ pageContext }) {
   return (
     <>
       <SEO title="All Tags" description="List of all the blog tags" />
-      <SectionHeader>
-        <h2>Tags</h2>
-        <Link to="/blog">All posts</Link>
-      </SectionHeader>
-      <Content>
-        <ul>
-          {tags.map((tag) => (
-            <li key={tag.name}>
-              <Link to={`/blog/tags/${slugify(tag.name)}`}>
-                {tag.name} ({tag.totalCount})
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </Content>
+      <Section>
+        <SectionHeader>
+          <h2>Tags</h2>
+          <Link to="/blog">All posts</Link>
+        </SectionHeader>
+        <Content>
+          <ul>
+            {tags.map((tag) => (
+              <li key={tag.name}>
+                <Link to={`/blog/tags/${slugify(tag.name)}`}>
+                  {tag.name} ({tag.totalCount})
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Content>
+      </Section>
       {totalPages > 1 && (
         <Pagination
           currentPage={currentPage}

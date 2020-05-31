@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, graphql } from 'gatsby';
 import SEO from '../components/seo';
-import { SectionHeader, Content } from '../styles/elements/content';
+import { Section, SectionHeader, Content } from '../styles/elements/content';
 
 export default function TagPage({ data, pageContext }) {
   const { tag } = pageContext;
@@ -15,27 +15,31 @@ export default function TagPage({ data, pageContext }) {
         description={`Articles published and tagged with ${tag}`}
         keywords={[tag]}
       />
-      <SectionHeader>
-        <h2>
-          {tag}
-          <small>{` (${totalCount} post${totalCount === 1 ? '' : 's'})`}</small>
-        </h2>
-        <Link to="/blog/tags">All tags</Link>
-      </SectionHeader>
-      <Content>
-        <ul>
-          {posts.map(({ node }) => {
-            const { slug } = node.fields;
-            const { title } = node.frontmatter;
+      <Section>
+        <SectionHeader>
+          <h2>
+            {tag}
+            <small>{` (${totalCount} post${
+              totalCount === 1 ? '' : 's'
+            })`}</small>
+          </h2>
+          <Link to="/blog/tags">All tags</Link>
+        </SectionHeader>
+        <Content>
+          <ul>
+            {posts.map(({ node }) => {
+              const { slug } = node.fields;
+              const { title } = node.frontmatter;
 
-            return (
-              <li key={slug}>
-                <Link to={slug}>{title}</Link>
-              </li>
-            );
-          })}
-        </ul>
-      </Content>
+              return (
+                <li key={slug}>
+                  <Link to={slug}>{title}</Link>
+                </li>
+              );
+            })}
+          </ul>
+        </Content>
+      </Section>
     </>
   );
 }
