@@ -3,11 +3,19 @@ import PropTypes from 'prop-types';
 import { Link as GatsbyLink } from 'gatsby';
 
 export default function Link({ children, href }) {
-  return href.startsWith('/') ? (
-    <GatsbyLink to={href}>{children}</GatsbyLink>
-  ) : (
-    <a href={href} target="_blank" rel="noopener noreferrer">
-      {children}↗
+  if (href.startsWith('/')) {
+    return <GatsbyLink to={href}>{children}</GatsbyLink>;
+  }
+
+  const onPage = href.startsWith('#');
+
+  return (
+    <a
+      href={href}
+      target={onPage ? null : '_blank'}
+      rel={onPage ? null : 'noopener noreferrer'}
+    >
+      {children}
     </a>
   );
 }
