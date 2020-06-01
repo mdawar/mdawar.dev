@@ -19,7 +19,7 @@ export default function SEO({
         site {
           siteMetadata {
             name
-            url
+            siteUrl
           }
         }
       }
@@ -35,14 +35,14 @@ export default function SEO({
       {author && <meta name="author" content={author} />}
       {description && <meta name="description" content={description} />}
       {keywords && <meta name="keywords" content={keywords.join(', ')} />}
-      {path && <link rel="canonical" href={`${site.url}${path}`} />}
+      {path && <link rel="canonical" href={`${site.siteUrl}${path}`} />}
 
       <meta property="og:type" content={article ? 'article' : 'website'} />
       <meta property="og:locale" content="en_US" />
       <meta property="og:site_name" content={site.name} />
       {title && <meta property="og:title" content={title} />}
       {description && <meta property="og:description" content={description} />}
-      {path && <meta property="og:url" content={`${site.url}${path}`} />}
+      {path && <meta property="og:url" content={`${site.siteUrl}${path}`} />}
       {article && article.published_time && (
         <meta
           property="article:published_time"

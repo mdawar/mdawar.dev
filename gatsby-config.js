@@ -67,6 +67,13 @@ module.exports = {
         cache_busting_mode: 'name',
         theme_color_in_head: true
       }
+    },
+    {
+      resolve: 'gatsby-plugin-sitemap',
+      options: {
+        output: '/sitemap.xml',
+        createLinkInHead: false
+      }
     }
   ]
 };

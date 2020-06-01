@@ -8,7 +8,7 @@ module.exports = {
     'System Administration',
     'Freelance Web Developer'
   ],
-  url: 'https://mdawar.dev',
+  siteUrl: 'https://mdawar.dev',
   author: {
     name: 'Pierre Mdawar',
     email: 'pierre@mdawar.dev',
