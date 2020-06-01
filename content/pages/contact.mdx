@@ -8,6 +8,7 @@ import { Form, Button } from '../../src/styles/elements/form';
 Contact me if you have any questions, feedback or to discuss your next project using this form below or directly on this email address: [pierre@mdawar.dev](mailto:pierre@mdawar.dev)
 
 <Form name="contact" method="post" data-netlify="true" netlify-honeypot="bot-field">
+  <input type="hidden" name="form-name" value="contact" />
   <input name="bot-field" hidden />
   <label htmlFor="email">Email</label>
   <input id="email" type="email" name="email" placeholder="Your email address" required />
