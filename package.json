@@ -6,7 +6,8 @@
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "deploy": "netlify deploy --dir=public --prod"
   },
   "author": "Pierre Mdawar",
   "license": "MIT",
