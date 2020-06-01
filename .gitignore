@@ -1,3 +1,9 @@
 node_modules
 public
 .cache
+
+# Terraform
+**/.terraform
+*.tfstate
+secrets.auto.tfvars
+*.tf.json

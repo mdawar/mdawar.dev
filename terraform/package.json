@@ -1,0 +1,12 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@mdawar/terraformjs": "^1.1.0"
+  },
+  "prettier": {
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "none"
+  }
+}
