@@ -4,11 +4,13 @@ import Layout from './src/components/Layout';
 import { GlobalStyle } from './src/styles/global';
 import theme from './src/styles/theme';
 import { MDXProvider } from '@mdx-js/react';
+import Link from './src/components/Link';
 import CodeBlock from './src/components/CodeBlock';
 
 // Components to override in the rendered markdown
 // https://mdxjs.com/getting-started#table-of-components
 const components = {
+  a: Link,
   // Code blocks
   pre: CodeBlock
 };
