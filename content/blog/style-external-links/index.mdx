@@ -1,0 +1,26 @@
+---
+title: Style Links that Open in a New Tab Using CSS
+date: 2020-06-01
+description: Add a hint to your users that a link will open in a new browser tab.
+keywords: ["CSS", "Styling", "Links"]
+tags: ["CSS"]
+published: true
+---
+
+Styling links that open in a new tab is a nice thing to add, this way the reader will know that a link will open in a new browser tab.
+
+You can target these links using the CSS attribute selector:
+
+```css {lineNumbers: true}{copy: true}
+a[target="_blank"] {
+  /* Add your external link styles */
+}
+```
+
+You can also use the `::after` pseudo-element to add an arrow, for example:
+
+```css {lineNumbers: true}{copy: true}
+a[target="_blank"]::after {
+  content: "↗";
+}
+```
