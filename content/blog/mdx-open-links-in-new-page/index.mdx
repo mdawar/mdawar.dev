@@ -1,0 +1,113 @@
+---
+title: Open Links in a New Tab on your Gatsby MDX Blog
+date: 2020-06-01
+description: Open the external links in your MDX files in a new tab without any plugins.
+keywords: ["JavaScript", "Gatsby", "MDX"]
+tags: ["Gatsby", "MDX", "JavaScript"]
+published: true
+---
+
+If you prefer to open all the external links on your Gatsby MDX powered blog in a new tab, here's how to do it without installing any plugins.
+
+### 1. Create a component to replace the `a` element
+
+When using MDX you can replace the default HTML elements that Markdown compiles to with your own [components](https://mdxjs.com/getting-started#working-with-components), so we can replace the `a` element with our own custom `Link` component.
+
+Here's an example component that wraps Gatsby's `Link` component and uses it only for internal links, and adds `target="_blank"` for the external links:
+
+```jsx {title: src/components/Link.js}{lineNumbers: true}{copy: true}
+import React from 'react';
+import { Link as GatsbyLink } from 'gatsby';
+
+export default function Link({ children, href }) {
+  if (href.startsWith('/')) {
+    // Use Gatsby's Link component for internal site navigation
+    // to benefit from the preloading features
+    // See: https://www.gatsbyjs.org/docs/gatsby-link/
+    return <GatsbyLink to={href}>{children}</GatsbyLink>;
+  }
+
+  // Check if the link is for a section on the page
+  // We don't want to add the attributes for the on page links
+  const onPage = href.startsWith('#');
+
+  return (
+    <a
+      href={href}
+      // Open the link in a new page
+      target={onPage ? null : '_blank'}
+      // Add noopener and noreferrer for security reasons
+      rel={onPage ? null : 'noopener noreferrer'}
+    >
+      {children}
+    </a>
+  );
+}
+```
+
+The `rel` attribute is very important, here are some notes from [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a):
+
+> **Note**: When using `target`, add `rel="noreferrer noopener"` to avoid exploitation of the `window.opener` API;
+
+> **Note**: Linking to another page with `target="_blank"` will run the new page in the same process as your page. If the new page executes JavaScript, your page's performance may suffer. This can also be avoided by using `rel="noreferrer noopener"`.
+
+---
+
+**SEO Note**:
+
+If you want the same result as the [gatsby-remark-external-links](https://www.gatsbyjs.org/packages/gatsby-remark-external-links/) plugin, you need to also add `nofollow`.
+
+Usually, you want to do this if you don't have control over the posted content (eg: user-generated content), but if you're adding this to your blog, you can safely ignore it because you won't link to sites that you don't endorse in the first place and if you link to sites usually you want them to benefit from this link.
+
+---
+
+### 2. Replace the `a` elements with the new component
+
+Now you can replace the `a` elements in your MDX files with this new `Link` component which can be done using `MDXProvider` (uses the [React's Context API](https://reactjs.org/docs/context.html)), the idea is to wrap the `MDXRenderer` component.
+
+You can do this in your `Layout` component:
+
+```jsx {title: src/components/Layout.js}{lineNumbers: true}{copy: true}
+import React from 'react';
+import { MDXProvider } from '@mdx-js/react';
+import Link from './Link';
+
+export default function Layout({ children }) {
+  return (
+    <MDXProvider
+      components={{
+        // Map the HTML elements to React components
+        a: Link
+      }}
+    >
+      {children}
+    </MDXProvider>
+  );
+}
+```
+
+Or directly where you're using the `MDXRenderer` component:
+
+```jsx {title: src/templates/blog-post.js}{lineNumbers: true}{copy: true}
+import React from 'react';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
+import { MDXProvider } from '@mdx-js/react';
+import Link from './Link';
+
+export default function BlogPost({ data }) {
+  const { body } = data.mdx;
+
+  return (
+    <MDXProvider
+      components={{
+        // Map the HTML elements to React components
+        a: Link
+      }}
+    >
+      <MDXRenderer>{body}</MDXRenderer>
+    </MDXProvider>
+  );
+}
+```
+
+That's it, now all the links in your MDX files will be using this new `Link` component and the external links will open in a new tab.
