@@ -27,6 +27,10 @@ export const GlobalStyle = createGlobalStyle`
     &:hover {
       border-bottom-style: solid;
     }
+
+    &[target="_blank"]::after {
+      content: "↗";
+    }
   }
 
   h1, h2, h3, h4, h5, h6 {
