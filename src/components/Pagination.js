@@ -23,9 +23,11 @@ function Pagination({
         <span>First Page</span>
       ) : (
         prevLink && (
-          <Link to={prevLink} rel="prev">
-            {prev}
-          </Link>
+          <span>
+            <Link to={prevLink} rel="prev">
+              {prev}
+            </Link>
+          </span>
         )
       )}
       {hasPages && (
@@ -37,9 +39,11 @@ function Pagination({
         <span>Last Page</span>
       ) : (
         nextLink && (
-          <Link to={nextLink} rel="next">
-            {next}
-          </Link>
+          <span className="next">
+            <Link to={nextLink} rel="next">
+              {next}
+            </Link>
+          </span>
         )
       )}
     </nav>
@@ -67,7 +71,7 @@ export default styled(Pagination)`
   justify-content: space-between;
   padding: ${({ theme }) => theme.padding}rem 0;
 
-  a[rel='next']:only-child {
+  span.next:only-child {
     margin-left: auto;
   }
 
@@ -85,8 +89,7 @@ export default styled(Pagination)`
     flex-direction: column;
     align-items: center;
 
-    span,
-    a {
+    span {
       margin: ${({ theme }) => theme.margin / 4}rem 0;
     }
   }
