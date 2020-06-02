@@ -74,6 +74,15 @@ module.exports = {
         output: '/sitemap.xml',
         createLinkInHead: false
       }
+    },
+    {
+      resolve: 'gatsby-plugin-gtag',
+      options: {
+        trackingId: 'UA-168232743-1',
+        head: true,
+        // Enable ip anonymization
+        anonymize: true
+      }
     }
   ]
 };
