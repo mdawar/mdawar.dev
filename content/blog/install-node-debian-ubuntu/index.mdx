@@ -1,0 +1,75 @@
+---
+title: Install Node.js Manually on Debian/Ubuntu Linux
+date: 2020-06-09
+description: Install Node.js manually using NodeSource binary distributions.
+keywords: ["Install Node.js", "Install Node on Debian", "Install Node on Ubuntu"]
+tags: ["Node", "Linux"]
+published: true
+---
+
+To install **Node.js** manually on **Debian** and **Ubuntu** based Linux distributions we can use [NodeSource binary distributions](https://github.com/nodesource/distributions).
+
+### 1. Add the NodeSource package signing key
+
+```bash {terminal: true}
+# Using curl
+curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+# Or using wget
+wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+```
+
+### 2. Add the NodeSource APT repository
+
+You have to choose which version of **Node.js** you want to install and then we need to create a file containing the APT repository at `/etc/apt/sources.list.d`.
+
+For example this is for **Debian 10 (Buster)** and **Node.js** version 13:
+
+```text {title: /etc/apt/sources.list.d/nodesource.list}
+deb https://deb.nodesource.com/node_13.x buster main
+deb-src https://deb.nodesource.com/node_13.x buster main
+```
+
+The 2 things that you have to change are the following:
+
+- `node_13.x`: **Node.js** version (eg: `node_12.x`, `node_14.x`)
+- `buster`: Distribution codename
+
+The [NodeSource distributions repository](https://github.com/nodesource/distributions/blob/master/README.md#manual-installation) shows how to do create this file:
+
+```bash {terminal: true}
+# Create a variable with the Node.js version that you want to install
+# eg: node_12.x, node_13.x, node_14.x
+VERSION=node_14.x
+# Create a variable with the codename of your distribution
+DISTRO="$(lsb_release -s -c)"
+# Then we create the nodesource.list file with the APT repository
+echo "deb https://deb.nodesource.com/$VERSION $DISTRO main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+echo "deb-src https://deb.nodesource.com/$VERSION $DISTRO main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
+```
+
+### 3. Install Node.js
+
+```bash {terminal: true}
+# Update the list of packages
+sudo apt-get update
+# Install Node.js
+sudo apt-get install nodejs
+```
+
+### 4. Verify the installation
+
+```bash {terminal: true}{promptLines: 1,2}
+# Check the installed version
+node -v
+v14.4.0
+```
+
+### 5. Update npm
+
+The `npm` version that comes with **Node.js** might be out of date, you can update it to the latest version:
+
+```bash {terminal: true}{promptLines: 1,2}
+sudo npm i npm -g
+```
+
+This is one way of installing **Node.js** on **Debian** and **Ubuntu** based distributions, the downside is that you can't have multiple versions installed at the same time, but you can use a tool like [nvm (Node Version Manager)](https://github.com/nvm-sh/nvm) to install and use multiple versions of **Node.js**.
