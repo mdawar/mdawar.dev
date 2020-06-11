@@ -5,7 +5,7 @@ import SEO from '../components/seo';
 import { Section, SectionHeader, Content } from '../styles/elements/content';
 
 export default function TagPage({ data, pageContext }) {
-  const { tag } = pageContext;
+  const { tag, slug } = pageContext;
   const { posts, totalCount } = data.allMdx;
 
   return (
@@ -14,6 +14,7 @@ export default function TagPage({ data, pageContext }) {
         title={tag}
         description={`Articles published and tagged with ${tag}`}
         keywords={[tag]}
+        path={slug}
       />
       <Section>
         <SectionHeader>

@@ -13,7 +13,7 @@ export default function BlogPostPage({ data, pageContext }) {
     mdx: { frontmatter, body },
     site: { siteMetadata: site }
   } = data;
-  const { prev, next } = pageContext;
+  const { prev, next, slug } = pageContext;
 
   return (
     <>
@@ -27,6 +27,7 @@ export default function BlogPostPage({ data, pageContext }) {
           author: site.author.name,
           tags: frontmatter.tags
         }}
+        path={slug}
       />
       <Section>
         <SectionHeader>

@@ -14,7 +14,11 @@ export default function TagsPage({ pageContext }) {
 
   return (
     <>
-      <SEO title="All Tags" description="List of all the blog tags" />
+      <SEO
+        title="All Tags"
+        description="List of all the blog tags"
+        path="/blog/tags"
+      />
       <Section>
         <SectionHeader>
           <h2>Tags</h2>

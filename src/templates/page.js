@@ -5,8 +5,9 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import SEO from '../components/seo';
 import { Section, SectionHeader, Content } from '../styles/elements/content';
 
-export default function MdxPage({ data }) {
+export default function MdxPage({ data, pageContext }) {
   const { frontmatter, body } = data.mdx;
+  const { slug } = pageContext;
 
   return (
     <>
@@ -14,6 +15,7 @@ export default function MdxPage({ data }) {
         title={frontmatter.title}
         description={frontmatter.description}
         keywords={frontmatter.keywords}
+        path={slug}
       />
       <Section>
         <SectionHeader>

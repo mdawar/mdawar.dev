@@ -23,6 +23,7 @@ export default function BlogPostsList({ pageContext }) {
           'Open Source Software',
           'Technology'
         ]}
+        path="/blog"
       />
       <Section>
         <SectionHeader>
