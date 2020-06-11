@@ -1,0 +1,250 @@
+---
+title: How to Mock a Python Default Function Argument?
+date: 2020-06-11
+description: Mock Python default function arguments for unit testing.
+keywords: ["Python", "Unittest", "Unittest Mock", "Mock Default Function Argument"]
+tags: ["Python", "Unittest"]
+published: true
+---
+
+Python functions are first class objects, their default arguments values are evaluated on definition and stored in the special attributes `__defaults__` and `__kwdefaults__`.
+
+### The special `__defaults__` attribute
+
+The `__defaults__` attribute holds a `tuple` containing the default argument values for the **positional** arguments that have defaults, or `None` if no arguments have a default value.
+
+This is a function without default argument values:
+
+```python
+>>> def func(a, b):
+...     pass
+...
+>>> func.__defaults__
+>>> func.__defaults__ is None
+True
+>>> func.__kwdefaults__
+>>> func.__kwdefaults__ is None
+True
+```
+
+And this is another function with default argument values:
+
+```python
+>>> def func(a, b='Default value'):
+...     pass
+...
+>>> func.__defaults__
+('Default value',)
+>>> func.__kwdefaults__
+>>> func.__kwdefaults__ is None
+True
+```
+
+### The special `__kwdefaults__` attribute
+
+The `__kwdefaults__` attribute holds a `dict` containing defaults for **keyword-only** arguments:
+
+```python
+>>> def func(*args, b='Default value'):
+...     pass
+...
+>>> func.__defaults__
+>>> func.__defaults__ is None
+True
+>>> func.__kwdefaults__
+{'b': 'Default value'}
+```
+
+### Unit testing functions with default arguments
+
+Some functions migh have default argument values like **classes**, **functions** or **global objects**, for example:
+
+```python {title: code.py}{copy: true}
+# An example class to use as a default argument value
+class CustomObject:
+    pass
+
+# A function just for demonstration
+def create_object(obj_class=CustomObject):
+    return obj_class()
+```
+
+A unit test trying to mock the `CustomObject` class:
+
+```python {title: test_code.py}{copy: true}
+import unittest
+from unittest.mock import patch
+
+from code import create_object
+
+
+class DefaultArgumentValueTestCase(unittest.TestCase):
+
+    @patch('code.CustomObject')
+    def test_function_default_argument_value(self, mockCustomObject):
+        # Call the function that uses the CustomObject class
+        create_object()
+
+        # This mock object is not going to be called
+        # The original CustomObject class will be called
+        mockCustomObject.assert_called_once_with()
+```
+
+Run the test:
+
+```bash {terminal: true}{promptLines: 1}
+python -m unittest
+F
+======================================================================
+FAIL: test_function_default_argument_value (test_code.DefaultArgumentValueTestCase)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.7/unittest/mock.py", line 1204, in patched
+    return func(*args, **keywargs)
+  File "/home/pierre/files/tests/python-default-args/test_code.py", line 17, in test_function_default_argument_value
+    CustomObject.assert_called_once_with()
+  File "/usr/lib/python3.7/unittest/mock.py", line 839, in assert_called_once_with
+    raise AssertionError(msg)
+AssertionError: Expected 'CustomObject' to be called once. Called 0 times.
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)
+```
+
+The test fails because the function will use the default argument value stored in the function's `__defaults__` attribute, so we need to patch this attribute to insert our mock object.
+
+### Patch the function's `__defaults__` attribute
+
+This how we can patch the function's `__defaults__` attribute:
+
+```python {title: test_code.py}{copy: true}
+import unittest
+from unittest.mock import patch, Mock
+
+from code import create_object
+
+
+class DefaultArgumentValueTestCase(unittest.TestCase):
+
+    def test_function_default_argument_value(self):
+        # CustomObject mock
+        mockCustomObject = Mock()
+
+        # The new __defaults__ tuple containing our mock object
+        new_defaults = (mockCustomObject,)
+
+        # Patch the __defaults__ tuple
+        with patch.object(create_object, '__defaults__', new_defaults):
+            # Call the function that uses the CustomObject class
+            create_object()
+
+        mockCustomObject.assert_called_once_with()
+```
+
+Now the test is going to pass:
+
+```bash {terminal: true}{promptLines: 1}
+python -m unittest
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+```
+
+Of course the same applies for patching the `__kwdefaults__` attribute but you have to use a `dict` instead of a `tuple`.
+
+### A more flexible patch
+
+As you might have noticed in the previous example code, we are hard coding the new `__defaults__` tuple.
+
+We can make this code a little bit more flexible by making a copy of the original `__defaults__` tuple and replacing the needed values only.
+
+Let's consider this function with multiple default arguments:
+
+```python {title: code.py}{copy: true}
+# An example class to use as a default argument value
+class CustomObject:
+    pass
+
+# A function just for demonstration
+def create_object(a, b=1, c='Default', obj_class=CustomObject):
+    return obj_class(a, b, c)
+```
+
+Let's check the `__defaults__` attribute:
+
+```bash {terminal: true}{promptLines: 1,2}
+# Execute the script and enter interactive mode using the -i flag
+python -i code.py
+>>> create_object.__defaults__
+(1, 'Default', <class '__main__.CustomObject'>)
+```
+
+Now in our test we can loop through the values of the `__defaults__` tuple and only replace the ones we need to mock:
+
+```python {title: test_code.py}{copy: true}
+import unittest
+from unittest.mock import patch, Mock
+
+from code import create_object, CustomObject
+
+
+class DefaultArgumentValueTestCase(unittest.TestCase):
+
+    def test_function_default_argument_value(self):
+        # CustomObject mock
+        mockCustomObject = Mock()
+
+        # The new __defaults__ tuple containing our mock object
+        # Loop through the values and replace only the CustomObject class
+        new_defaults = tuple(mockCustomObject if v is CustomObject else v for v in create_object.__defaults__)
+
+        # Patch the __defaults__ tuple
+        with patch.object(create_object, '__defaults__', new_defaults):
+            # Call the function that uses the CustomObject class
+            create_object(2)
+
+        mockCustomObject.assert_called_once_with(2, 1, 'Default')
+```
+
+### Better function design
+
+A better way to design the above `create_object` function is by replacing the default argument value with `None` and checking for this value in the function body:
+
+```python {copy: true}
+def create_object(obj_class=None):
+    if obj_class is None:
+        obj_class = CustomObject
+
+    return obj_class()
+```
+
+This makes the function more flexible and lets the user of this function pass `None` for using the default value, which was not an option before.
+
+Also now your test is going to be as simple as our first version:
+
+```python {title: test_code.py}{copy: true}
+import unittest
+from unittest.mock import patch
+
+from code import create_object
+
+
+class DefaultArgumentValueTestCase(unittest.TestCase):
+
+    @patch('code.CustomObject')
+    def test_function_default_argument_value(self, mockCustomObject):
+        # Call the function that uses the CustomObject class
+        create_object()
+
+        # This mock object is not going to be called
+        # The original CustomObject class will be called
+        mockCustomObject.assert_called_once_with()
+```
+
+### Conclusion
+
+Mocking default function argument values is a little bit hacky but required in some situations, but when you can change the function definition it's always better to make it flexible and accept `None` for default argument values.
