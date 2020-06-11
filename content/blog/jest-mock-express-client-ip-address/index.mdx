@@ -1,0 +1,110 @@
+---
+title: Mock Express.js Client IP Address Using Jest
+date: 2020-06-11
+description: Mock the client's IP address when unit testing an Express application using Jest.
+keywords: ["JavaScript", "Jest", "Express.js", "Mock Express IP Address"]
+tags: ["JavaScript", "Jest", "Express", "Node"]
+published: true
+---
+
+When working on an **Express** application that deals with the remote client IP address you might need to mock this IP address in your unit tests, this article shows how you can do this using **Jest**.
+
+### Example Express.js application
+
+Creating an example project:
+
+```bash {terminal: true}{copy: true}
+# Create a new directory and cd into it
+mkdir express-app
+cd express-app
+# Create a package.json file
+npm init -y
+# Install express
+npm i express
+```
+
+This is an example **Express** application that returns a JSON object containing the client's IP address using `req.ip`.
+
+```js {title: src/app.js}{copy: true}
+const express = require('express');
+const app = express();
+
+// Just return the client's IP address as JSON
+app.get('/', (req, res) => res.json({ ip: req.ip }));
+
+module.exports.app = app;
+```
+
+---
+
+**Note**: By default, if the `trust proxy` application variable is set to `false` (default), then the IP is derived from `req.connection.remoteAddress` otherwise it will be taken from the `X-Forwarded-For` header depending on your configuration.
+
+See: [Express behind proxies](http://expressjs.com/en/guide/behind-proxies.html) for more details.
+
+---
+
+And this is the module that starts the application on port `3000`:
+
+```js {title: src/server.js}{copy: true}
+const { app } = require('./app');
+const port = 3000;
+
+app.listen(port, () =>
+  console.log(`Example app listening at http://localhost:${port}`)
+);
+```
+
+Now you can start the application:
+
+```bash {terminal: true}{promptLines: 1}
+node src/server.js
+Example app listening at http://localhost:3000
+```
+
+And try it out:
+
+```bash {terminal: true}{promptLines: 1}
+curl localhost:3000
+{"ip":"::1"}
+```
+
+### Mocking the `req.ip` property
+
+To test this application we're going to use `jest` and `supertest`.
+
+First install them as dev dependencies:
+
+```bash {terminal: true}{copy: true}
+npm i -D jest supertest
+```
+
+This is an example test file that shows how to mock `req.ip` using `jest.spyOn`:
+
+```js {title: tests/app.test.js}{copy: true}
+const request = require('supertest');
+const req = require('express/lib/request');
+const { app } = require('../src/app');
+
+const CLIENT_IP = '1.2.3.4';
+
+beforeEach(() => {
+  // Mock the `ip` property on the `req` object
+  jest.spyOn(req, 'ip', 'get').mockReturnValue(CLIENT_IP);
+});
+
+afterEach(() => {
+  // Restore all the mocks back to their original value
+  // Only works when the mock was created with `jest.spyOn`
+  jest.restoreAllMocks();
+});
+
+test('Client IP', async () => {
+  const response = await request(app).get('/');
+
+  expect(response.statusCode).toBe(200);
+  expect(response.type).toBe('application/json');
+  expect(response.body.ip).toEqual(CLIENT_IP);
+});
+```
+
+We are passing a third argument `get` to `jest.spyOn` because `req.ip` is a getter function, check out the [Jest documentation](https://jestjs.io/docs/en/jest-object#jestspyonobject-methodname-accesstype) for more details.
