@@ -151,11 +151,14 @@ export const createPages = async ({ graphql, actions }) => {
 
   // Create the tags pages
   tags.forEach((tag) => {
+    const path = `/blog/tags/${slugify(tag.name)}`;
+
     createPage({
-      path: `/blog/tags/${slugify(tag.name)}`,
+      path: path,
       component: templates.tag,
       context: {
-        tag: tag.name
+        tag: tag.name,
+        slug: path
       }
     });
   });
