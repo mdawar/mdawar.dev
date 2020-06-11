@@ -50,6 +50,7 @@ export const Content = styled.div`
     border: 1px solid burlywood;
     padding: 0.1rem 0.2rem;
     border-radius: ${({ theme }) => theme.borderRadius};
+    white-space: nowrap;
   }
 
   hr {
