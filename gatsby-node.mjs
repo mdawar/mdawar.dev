@@ -100,7 +100,12 @@ export const createPages = async ({ graphql, actions }) => {
         }
       }
 
-      tags: allMdx(filter: { fields: { collection: { eq: "posts" } } }) {
+      tags: allMdx(
+        filter: {
+          fields: { collection: { eq: "posts" } }
+          frontmatter: { published: { eq: true } }
+        }
+      ) {
         group(field: frontmatter___tags) {
           name: fieldValue
           totalCount
