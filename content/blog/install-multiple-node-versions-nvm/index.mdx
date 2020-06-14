@@ -1,0 +1,275 @@
+---
+title: Install Multiple Node.js Versions Using NVM
+date: 2020-06-14
+description: Install and manage multiple Node.js versions using NVM (Node Version Manager).
+keywords: ["Install Node.js", "Multiple Node.js Versions", "NVM"]
+tags: ["Node", "Linux"]
+published: true
+---
+
+**NVM** is a version manager for **Node.js**, it provides a simple interface for installing and managing multiple versions easily.
+
+## Install NVM
+
+An `install.sh` script is used to **install** and **update** `nvm`, you can find the latest version URL on the [GitHub repository](https://github.com/nvm-sh/nvm#install--update-script).
+
+You can download and run the script using **cURL**:
+
+```bash {terminal: true}{copy: true}
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+```
+
+Or using **wget**:
+
+```bash {terminal: true}{copy: true}
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+```
+
+The script clones the `nvm` repository to `~/.nvm`, and adds source lines to your shell profile file to load `nvm` and tab completion for your shell.
+
+Display the installed version:
+
+```bash {terminal: true}{promptLines: 1,2}
+# You need to open a new shell after the installation
+nvm --version
+0.35.3
+```
+
+Display the **NVM** installation directory:
+
+```bash {terminal: true}{promptLines: 1}
+echo $NVM_DIR
+/home/pierre/.nvm
+```
+
+[List of environment variables exposed by nvm](https://github.com/nvm-sh/nvm#environment-variables)
+
+---
+
+**Note**: You don't need to use `sudo` when using `npm` because `nvm` installs **Node.js** in your home directory where you have write permissions, so you can use `npm install` and `npm uninstall` without `sudo`.
+
+---
+
+## Install Node.js
+
+For **Debian**/**Ubuntu** based GNU/Linux distributions you need to install the `build-essential` and `libssl-dev` packages that will be required when installing **Node.js** from the source code:
+
+```bash {terminal: true}{copy: true}
+sudo apt-get update && sudo apt-get install build-essential libssl-dev
+```
+
+Before installing **Node.js**, here's how you can list the installed versions and the versions available to install:
+
+```bash {terminal: true}
+# List the installed versions
+nvm ls
+# List all the versions available to install
+nvm ls-remote
+# List the releases of a specific version
+nvm ls-remote 14
+```
+
+To install **Node.js** you can use the version number from the `nvm ls-remote` output or use an alias, for example `node` is an alias for the latest version:
+
+```bash {terminal: true}{promptLines: 1,2}
+# Install the latest version
+nvm install node
+Downloading and installing node v14.4.0...
+Downloading https://nodejs.org/dist/v14.4.0/node-v14.4.0-linux-x64.tar.xz...
+##################################################################### 100.0%
+Computing checksum with sha256sum
+Checksums matched!
+Now using node v14.4.0 (npm v6.14.5)
+Creating default alias: default -> node (-> v14.4.0)
+```
+
+The versions installed using `nvm` are going to be installed in the `~/.nvm` directory.
+
+You can use `nvm which` to show the executable path:
+
+```bash {terminal: true}{promptLines: 1,2}
+# Show the path to the executable to where it was installed
+nvm which node
+/home/pierre/.nvm/versions/node/v14.4.0/bin/node
+```
+
+Install a specific **Node.js** version using the version number:
+
+```bash {terminal: true}{promptLines: 1-3}
+# Install the latest available v13 release
+# You can also use the exact version number (eg: v13.14.0)
+nvm install 13
+Downloading and installing node v13.14.0...
+Downloading https://nodejs.org/dist/v13.14.0/node-v13.14.0-linux-x64.tar.xz...
+##################################################################### 100.0%
+Computing checksum with sha256sum
+Checksums matched!
+Now using node v13.14.0 (npm v6.14.4)
+```
+
+## Switch between Node.js versions
+
+When you start a new shell, the `default` version will be used which is the first installed **Node.js** version.
+
+You can switch between **Node.js** versions using `nvm use`:
+
+```bash {terminal: true}
+# Switch to Node.js v13
+nvm use 13
+# Switch to an exact version
+nvm use v12.18.0
+# Switch to the default version
+nvm use default
+```
+
+If you have a **Node.js** system installed version (Installed without `nvm`), you can switch to it using:
+
+```bash {terminal: true}{copy: true}
+nvm use system
+```
+
+You can display the currently activated **Node.js** version using:
+
+```bash {terminal: true}{promptLines: 1}
+nvm current
+v14.4.0
+```
+
+## Set a new default Node.js version
+
+The first installed **Node.js** version becomes the `default` version, but you can change it using `nvm alias`.
+
+You can check the current `default` version:
+
+```bash {terminal: true}{promptLines: 1}
+nvm alias default
+default -> node (-> v14.4.0)
+```
+
+To set a new `default` version to be used in new shells:
+
+```bash {terminal: true}{promptLines: 1,2,4,5}
+# Set the version 13 as the default
+nvm alias default 13
+default -> 13 (-> v13.14.0)
+# Set the latest available node version as the default
+nvm alias default node
+default -> node (-> v14.4.0)
+```
+
+## Run Node.js version without switching to it
+
+Using `nvm use` changes the current **Node.js** version, but you can run a specific version without switching to it using `nvm run`:
+
+```bash {terminal: true}{promptLines: 1,2,4,5,8,9}
+# The currently activated version
+nvm current
+v14.4.0
+# Run another Node.js version
+nvm run 13 --version
+Running node v13.14.0 (npm v6.14.5)
+v13.14.0
+# The activated version is still the same
+nvm current
+v14.4.0
+```
+
+You can also run any arbitrary command in a subshell using `nvm exec`:
+
+```bash {terminal: true}{promptLines: 1,4}
+nvm exec 13 node --version
+Running node v13.14.0 (npm v6.14.5)
+v13.14.0
+nvm exec 13 npm --version
+Running node v13.14.0 (npm v6.14.5)
+6.14.5
+```
+
+## Install global packages when installing a new version
+
+When you install a new version and you want to install the same global packages from a another version, you can use `--reinstall-packages-from`:
+
+```bash {terminal: true}
+nvm install 14 --reinstall-packages-from=13
+```
+
+Reinstalling packages does not update the `npm` version by default, you can use `--latest-npm` to update it:
+
+```bash {terminal: true}
+nvm install 14 --reinstall-packages-from=v13 --latest-npm
+# Or you can update it later using
+npm i -g npm
+```
+
+You can also create a list of packages to install with every new version by creating a file named `default-packages` at the **NVM** directory:
+
+```bash {terminal: true}{promptLines: 1}
+echo "create-react-app
+> gatsby-cli
+> np
+> " > $NVM_DIR/default-packages
+```
+
+Now these packages will be installed as global packages for every **Node.js** version you install.
+
+## Uninstall Node.js versions
+
+Uninstalling **Node.js** versions is as simple as installing them:
+
+```bash {terminal: true}
+nvm uninstall v12.18.0
+```
+
+## Deactivate NVM
+
+**NVM** adds the `bin` directory of the currently used **Node.js** version to the `PATH` environment variable:
+
+```bash {terminal: true}{promptLines: 1}
+echo $PATH
+/home/pierre/.nvm/versions/node/v14.4.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+```
+
+You can remove it using `nvm deactivate`:
+
+```bash {terminal: true}{promptLines: 1,2,4}
+# Deactivate nvm and restore the PATH variable
+nvm deactivate
+/home/pierre/.nvm/*/bin removed from ${PATH}
+echo $PATH
+/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+```
+
+## Using `.nvmrc`
+
+You can use a `.nvmrc` file in your project directory to set the **Node.js** version to use.
+
+```bash {terminal: true}
+# Any version number or string that nvm understands is accepted
+# The trailing new line is required
+echo "13" > .nvmrc
+# Another example using a full version number
+echo "v13.14.0" > .nvmrc
+```
+
+Now when you `cd` into that directory you can switch to the specified **Node.js** version using:
+
+```bash {terminal: true}{promptLines: 1,2}
+# Also works in any subdirectory
+nvm use
+Found '/home/project/.nvmrc' with version <13>
+Now using node v13.14.0 (npm v6.14.4)
+```
+
+You can also install the version specified in the `.nvmrc` file using:
+
+```bash {terminal: true}{copy: true}
+nvm install
+```
+
+## Automatically switch Node.js version
+
+You can change the **Node.js** version automatically when you `cd` into a directory that contains a `.nvmrc` file without explicitly running `nvm use` everytime.
+
+To do this you can use [`avn` (Automatic Version Switching for Node)](https://github.com/wbyoung/avn) or the [community contributed recipes](https://github.com/nvm-sh/nvm#deeper-shell-integration) for `bash`, `zsh` and `fish`.
+
+For more information check out the [Deeper Shell Integration](https://github.com/nvm-sh/nvm#deeper-shell-integration) section on the **NVM** GitHub repository.
