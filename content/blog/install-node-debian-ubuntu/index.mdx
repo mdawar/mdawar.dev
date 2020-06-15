@@ -9,7 +9,7 @@ published: true
 
 To install **Node.js** manually on **Debian** and **Ubuntu** based Linux distributions we can use [NodeSource binary distributions](https://github.com/nodesource/distributions).
 
-### 1. Add the NodeSource package signing key
+## 1. Add the NodeSource package signing key
 
 ```bash {terminal: true}
 # Using curl
@@ -18,7 +18,7 @@ curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key ad
 wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
 ```
 
-### 2. Add the NodeSource APT repository
+## 2. Add the NodeSource APT repository
 
 You have to choose which version of **Node.js** you want to install and then we need to create a file containing the APT repository at `/etc/apt/sources.list.d`.
 
@@ -47,7 +47,7 @@ echo "deb https://deb.nodesource.com/$VERSION $DISTRO main" | sudo tee /etc/apt/
 echo "deb-src https://deb.nodesource.com/$VERSION $DISTRO main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
 ```
 
-### 3. Install Node.js
+## 3. Install Node.js
 
 ```bash {terminal: true}
 # Update the list of packages
@@ -56,7 +56,7 @@ sudo apt-get update
 sudo apt-get install nodejs
 ```
 
-### 4. Verify the installation
+## 4. Verify the installation
 
 ```bash {terminal: true}{promptLines: 1,2}
 # Check the installed version
@@ -64,7 +64,7 @@ node -v
 v14.4.0
 ```
 
-### 5. Update npm
+## 5. Update npm
 
 The `npm` version that comes with **Node.js** might be out of date, you can update it to the latest version:
 

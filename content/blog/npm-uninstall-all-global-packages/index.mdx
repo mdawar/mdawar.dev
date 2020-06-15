@@ -17,7 +17,7 @@ You might need to use `sudo` if you don't have the right permissions.
 
 And below you can find the explanation of what this one line command is doing.
 
-### 1. List the globally installed packages
+## 1. List the globally installed packages
 
 This is how we can list the globally installed packages:
 
@@ -78,7 +78,7 @@ npm ls -g --json --depth 0
 }
 ```
 
-### 2. Get the package names
+## 2. Get the package names
 
 Since we're using **Node** we're going to use **JavaScript** to parse this output to get the package names instead of using `awk` or `grep` or any other tool.
 
@@ -155,7 +155,7 @@ node -e "console.log(Object.keys(JSON.parse(process.argv[1]).dependencies).filte
 create-react-app gatsby-cli http-server live-server
 ```
 
-### 3. Uninstall the packages
+## 3. Uninstall the packages
 
 Now we have a string of the package names separated by spaces, we can pass this string to [`npm uninstall`](https://docs.npmjs.com/cli/uninstall):
 

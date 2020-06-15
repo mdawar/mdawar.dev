@@ -9,7 +9,7 @@ published: true
 
 Installing Terraform is very easy, it's available as a single binary named `terraform`.
 
-### 1. Download the zip archive
+## 1. Download the zip archive
 
 Go to the [Terraform Downloads](https://www.terraform.io/downloads.html) page and download the appropriate package for your system.
 
@@ -18,7 +18,7 @@ Go to the [Terraform Downloads](https://www.terraform.io/downloads.html) page an
 wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip
 ```
 
-### 2. Unzip the package
+## 2. Unzip the package
 
 ```bash {terminal: true}{promptLines: 1,2}
 # Unzip the downloaded archive
@@ -33,7 +33,7 @@ If you don't have `unzip` installed, then you can install it for example on Debi
 sudo apt-get install unzip
 ```
 
-### 3. Move the binary to a location available in your `PATH`
+## 3. Move the binary to a location available in your `PATH`
 
 View the list of locations in your `PATH`:
 
@@ -49,7 +49,7 @@ Move the `terraform` binary to one of the listed locations:
 sudo mv terraform /usr/local/bin/terraform
 ```
 
-### 4. Verify the installation
+## 4. Verify the installation
 
 ```bash {terminal: true}{promptLines: 1,2}
 # You should be able to run terraform from any location
@@ -57,7 +57,7 @@ terraform version
 Terraform v0.12.26
 ```
 
-### 5. Enable tab completion (Optional)
+## 5. Enable tab completion (Optional)
 
 You can enable tab completion if you're using `bash` or `zsh`.
 

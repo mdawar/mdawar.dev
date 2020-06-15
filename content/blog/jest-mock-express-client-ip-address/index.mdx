@@ -9,9 +9,9 @@ published: true
 
 When working on an **Express** application that deals with the remote client IP address you might need to mock this IP address in your unit tests, this article shows how you can do this using **Jest**.
 
-### Example Express.js application
+## Example Express.js application
 
-Creating an example project:
+Create an example project:
 
 ```bash {terminal: true}{copy: true}
 # Create a new directory and cd into it
@@ -68,7 +68,7 @@ curl localhost:3000
 {"ip":"::1"}
 ```
 
-### Mocking the `req.ip` property
+## Mocking the `req.ip` property
 
 To test this application we're going to use `jest` and `supertest`.
 

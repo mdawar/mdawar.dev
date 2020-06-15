@@ -9,7 +9,7 @@ published: true
 
 Python functions are first class objects, their default arguments values are evaluated on definition and stored in the special attributes `__defaults__` and `__kwdefaults__`.
 
-### The special `__defaults__` attribute
+## The special `__defaults__` attribute
 
 The `__defaults__` attribute holds a `tuple` containing the default argument values for the **positional** arguments that have defaults, or `None` if no arguments have a default value.
 
@@ -40,7 +40,7 @@ And this is another function with default argument values:
 True
 ```
 
-### The special `__kwdefaults__` attribute
+## The special `__kwdefaults__` attribute
 
 The `__kwdefaults__` attribute holds a `dict` containing defaults for **keyword-only** arguments:
 
@@ -55,7 +55,7 @@ True
 {'b': 'Default value'}
 ```
 
-### Unit testing functions with default arguments
+## Unit testing functions with default arguments
 
 Some functions migh have default argument values like **classes**, **functions** or **global objects**, for example:
 
@@ -115,7 +115,7 @@ FAILED (failures=1)
 
 The test fails because the function will use the default argument value stored in the function's `__defaults__` attribute, so we need to patch this attribute to insert our mock object.
 
-### Patch the function's `__defaults__` attribute
+## Patch the function's `__defaults__` attribute
 
 This how we can patch the function's `__defaults__` attribute:
 
@@ -156,7 +156,7 @@ OK
 
 Of course the same applies for patching the `__kwdefaults__` attribute but you have to use a `dict` instead of a `tuple`.
 
-### A more flexible patch
+## A more flexible patch
 
 As you might have noticed in the previous example code, we are hard coding the new `__defaults__` tuple.
 
@@ -210,7 +210,7 @@ class DefaultArgumentValueTestCase(unittest.TestCase):
         mockCustomObject.assert_called_once_with(2, 1, 'Default')
 ```
 
-### Better function design
+## Better function design
 
 A better way to design the above `create_object` function is by replacing the default argument value with `None` and checking for this value in the function body:
 
@@ -245,6 +245,6 @@ class DefaultArgumentValueTestCase(unittest.TestCase):
         mockCustomObject.assert_called_once_with()
 ```
 
-### Conclusion
+## Conclusion
 
 Mocking default function argument values is a little bit hacky but required in some situations, but when you can change the function definition it's always better to make it flexible and accept `None` for default argument values.

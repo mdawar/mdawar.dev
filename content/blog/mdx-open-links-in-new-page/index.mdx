@@ -9,7 +9,7 @@ published: true
 
 If you prefer to open all the external links on your Gatsby MDX powered blog in a new tab, here's how to do it without installing any plugins.
 
-### 1. Create a component to replace the `a` element
+## 1. Create a component to replace the `a` element
 
 When using MDX you can replace the default HTML elements that Markdown compiles to with your own [components](https://mdxjs.com/getting-started#working-with-components), so we can replace the `a` element with our own custom `Link` component.
 
@@ -61,7 +61,7 @@ Usually, you want to do this if you don't have control over the posted content (
 
 ---
 
-### 2. Replace the `a` elements with the new component
+## 2. Replace the `a` elements with the new component
 
 Now you can replace the `a` elements in your MDX files with this new `Link` component which can be done using `MDXProvider` (uses the [React's Context API](https://reactjs.org/docs/context.html)), the idea is to wrap the `MDXRenderer` component.
 
