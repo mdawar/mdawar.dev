@@ -1,0 +1,44 @@
+---
+title: How to Git Add an Empty Directory?
+date: 2020-07-07
+description: Add and commit and empty directory in your Git repository.
+keywords: ["Git", "Git add empty directory", "Git add empty folder", "Git commit empty directory"]
+tags: ["Git"]
+published: true
+---
+
+[**Git** can only track files](https://git.wiki.kernel.org/index.php/Git_FAQ#Can_I_add_empty_directories.3F), directories will be added automatically when adding files inside of them, but in some situations you might need to add an empty directory to your **Git** repository and here's how.
+
+## Add an empty directory
+
+To add an empty directory you can create an empty `.gitignore` file inside of it:
+
+```bash {terminal: true}
+touch directory/.gitignore
+```
+
+Using an empty `.gitignore` file lets you **add** and **commit** an empty directory, you can also use it later to [ignore files](https://git-scm.com/docs/gitignore) inside of it if you need to.
+
+You can have multiple `.gitignore` files in a repository to set the ignore patterns for certain directories or override the patterns set in the higher level directories.
+
+
+## Add an empty directory and ignore the contents
+
+If you want to **add** an empty directory and ignore any files inside of it, you can create a `.gitignore` file with the following patterns:
+
+```text {copy: true}
+*
+!.gitignore
+```
+
+The asterisk `*` matches anything except a slash, you can use it to ignore everything in this directory.
+
+The prefix `!` negates the pattern, the `.gitignore` file will be excluded by the previous pattern `*` and this way it will become included again.
+
+Now you can add the directory and everything inside of it will be ignored and will not show under the **Untracked files** when you display the working tree status (`git status`).
+
+## Other solutions
+
+Some people use empty files named `.gitkeep` or `.keep` in the empty directories they want to add to their repositories, these files are not special in any way, they are just used to add the empty directories and they can be named whatever you want.
+
+I prefer using the `.gitignore` file even if it's empty because it's used by **Git** and I can add ignore patterns later if I need to.
