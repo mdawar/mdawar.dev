@@ -1,0 +1,109 @@
+---
+title: How to Move a File in Node.js?
+date: 2020-07-16
+description: Move a file to another directory in Node.js with and without third party packages.
+keywords: ["Node", "Node move file", "Node.js move file to directory"]
+tags: ["Node", "JavaScript"]
+published: true
+---
+
+To move a file using **Node.js** you can use the [`fs.rename`](https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback) function:
+
+```js {copy: true}
+// Using the fs Promises API
+const fs = require('fs').promises;
+
+const oldPath = '/path/to/file.txt';
+const newPath = '/path/to/another/directory/file.js';
+
+fs.rename(oldPath, newPath)
+  .then(() => {/* Handle success */})
+  .catch((error) => {/* Handle failure */})
+
+// You can also use the async/await syntax
+(async () => {
+  try {
+    await fs.rename(oldPath, newPath);
+    // Handle success
+    console.log('File moved successfully');
+  } catch (error) {
+    // Handle the error
+    console.error(error);
+  }
+})();
+```
+
+**Note**: If the destination path already exists, it will be overwritten.
+
+## Handle non-existent destination directory
+
+If the destination directory does not exist, you will get an error with the code `ENOENT` (no such file or directory), so we have to take this case into consideration.
+
+```js {copy: true}
+const fs = require('fs').promises;
+const path = require('path');
+
+const oldPath = '/path/to/file.js';
+const newPath = '/path/to/another/directory/file.js';
+
+// Create a helper function
+async function moveFile(oldPath, newPath) {
+  // 1. Create the destination directory if it does not exist
+  // Set the `recursive` option to `true` to create all the subdirectories
+  await fs.mkdir(path.dirname(newPath), { recursive: true });
+
+  // 2. Rename the file (move it to the new directory)
+  // Return the promise
+  return fs.rename(oldPath, newPath);
+}
+
+moveFile(oldPath, newPath)
+  .then(console.log('File moved successfully'))
+  .catch(console.error);
+```
+
+## Handle moving files across different mount points
+
+The `rename` function does not work across different mount points, you will get the error code `EXDEV` (cross-device link not permitted), for example when using **Docker** volumes you will hit this error.
+
+As per the [rename manual page](https://man7.org/linux/man-pages/man2/rename.2.html):
+> **EXDEV** *oldpath* and *newpath* are not on the same mounted filesystem.
+> (Linux permits a filesystem to be mounted at multiple points,
+> but rename() does not work across different mount points, even
+> if the same filesystem is mounted on both.)
+
+To handle this case, you can fallback to copying the file to the new path and deleting the original file:
+
+```js {copy: true}
+const fs = require('fs').promises;
+const path = require('path');
+
+const oldPath = '/path/to/file.js';
+const newPath = '/path/to/another/directory/file.js';
+
+// The final version of the move function
+async function moveFile(oldPath, newPath) {
+  // 1. Create the destination directory
+  // Set the `recursive` option to `true` to create all the subdirectories
+  await fs.mkdir(path.dirname(newPath), { recursive: true });
+
+  try {
+    // 2. Rename the file (move it to the new directory)
+    await fs.rename(oldPath, newPath);
+  } catch (error) {
+    if (error.code === 'EXDEV') {
+      // 3. Copy the file as a fallback
+      await fs.copyFile(oldPath, newPath);
+      // Remove the old file
+      await fs.unlink(oldPath);
+    } else {
+      // Throw any other error
+      throw error;
+    }
+  }
+}
+
+moveFile(oldPath, newPath)
+  .then(console.log('File moved successfully'))
+  .catch(console.error);
+```
