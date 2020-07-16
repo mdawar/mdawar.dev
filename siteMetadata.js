@@ -1,7 +1,7 @@
 module.exports = {
   name: 'mdawar.dev',
   title: 'mdawar.dev',
-  description: 'Web development, System administration and more.',
+  description: 'Web development and Linux system administration.',
   keywords: [
     'Pierre Mdawar',
     'Web Development',
