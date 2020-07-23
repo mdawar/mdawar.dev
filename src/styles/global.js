@@ -30,6 +30,12 @@ export const GlobalStyle = createGlobalStyle`
 
     &[target="_blank"]::after {
       content: "↗";
+      display: inline-block;
+      transition: transform 0.1s ease-in-out 0s;
+    }
+
+    &[target="_blank"]:hover::after {
+      transform: translate(0.1em, -0.1em);
     }
   }
 
