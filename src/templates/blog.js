@@ -23,7 +23,7 @@ export default function BlogPostsList({ pageContext }) {
           'Open Source Software',
           'Technology'
         ]}
-        path="/blog"
+        path={currentPage === 1 ? '/blog' : `/blog/${currentPage}`}
       />
       <Section>
         <SectionHeader>
