@@ -1,0 +1,2 @@
+# Prevent 2 redirects, one to https then to the naked domain
+http://www.mdawar.dev/* https://mdawar.dev/:splat 301!
